@@ -1,74 +1,1943 @@
+// ## Namaste React Course by Akshay Saini
+// Chapter 04 - Talk is Cheap, show me the code
+
 import React from "react";
 import ReactDOM from "react-dom/client";
+import foodFireLogo from "../../public/Images/foodFireLogo.png";
+import { IMG_CDN_URL } from "../public/Common/constants";
 
-const Header = () => (
-  <div className="header">
-    <div className="logo">
-      <img
-        height="100px"
-        width="100px"
-        src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAMAAzAMBEQACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAAAQIDBQYHBAj/xAA/EAABAwMBBgIFCgQGAwAAAAABAAIDBAURBhIhMUFRYQdxExQiMoEVI0JSkaGxwdHSYnKSlBYzU6Kys0Njk//EABoBAQACAwEAAAAAAAAAAAAAAAAEBQECAwb/xAAxEQEAAgEDAgUCBQMFAQAAAAAAAQIDBBESIUEFIjFRYRORFDJxsdFigeEjM1KhwRX/2gAMAwEAAhEDEQA/APXWN3IMrGoMoCC4CCwCCwCCQEDCCQgICAgICAghAQRhBGEEEIKEIKEIMTmoMT2oPnkYg+Ys3oNw1qDI0ILgILgIJAQSgkICAglAQEBAQQgICAghBBCCpCChCChCDE9qDC5qDAWb0GzaEFwEFwEFgEEoCCQgICAgICAgICAgIIQEEIIwgqQgoQgo4IMLmoMJbvQbABBcBBYIJQEBBKAgICAgICAgICAgICCEEIIIQVIQUIQY3BBhI3oPtAQXCCQgICCUBAQEBAQEBAQEBAQEBAQQghBBCCpCDE4IMeEH1hBIQSgIJQEBAQEBAygIIyEEoCAgICAgICCEEFBUoKOCDGQg+kBBIQEEoCAgICCCcIOPuviVp211k9JUSVJqIHmORjIDlrh54XO2WtZ2l1ritaN4aWp8YrSzPq9urJT/ABFrP1Wk6mkNo09p9WsqPGWQ59WszQf/AGzZ/ALSdVHaG8ab5fZpHxBvuptQwUDKGkhp975nt2iWsHnzJW2PNN522YyYYpXd6iOCkIxkIG0EEoCAgjIWNwysggFBUoKFBQhBnCCUEoCAgICAgghB5b4x6UbNTf4homgTQNDKto3bUY4P828PI9go+ox7xvCTp8m08ZeP55KBKYhYHVaC1NVaarKiSktLa8zhokwSJGtHQgH8FJwZJr2cctIvHWXuemb4y/20VraKqo/aLDFUsDXZHkeCmxbdCvXjOz5dcagOmdPT3GOITShzWRMdwLnHAz2Cxe3Gu7OOnO2zyug8W9RQVAdWwUFTBn2omRuiIHZ2T94Kixqp36wlTpqdnrel9S27U9uFZb3ncdmSJ4w+J3Rw/MbjyUutotG8IlqTWdpborZqq54DSScADeeixMxEbkdfRoqi8uqXOFE4R0zDh9S4ZyejBzKrb636kz9KfLHf+PdLjT8I3v6z2/ltqSUyNG23ZfjJa4jaA745qditvCNaNpfSurVCCCgoQgrhBmQAglAQQThA2kNzKxuAWRKDz/xrq5afSUcMbi1tVVMikIOPZwXY/wBoXHPaYo76eN7vDCq1OQg7HwmrJaXWlLHG47FQx0b2jmMZB+5SdPPm2cc8eR+gcd1PQHO6/sj9QaXrKGH/ADxiSLu9pyB8cYWmSOVZiG+O3G28vzi9jo3OZI0sewlrmuGC0jkVWTWYnaVjvvG8Ok8O7zLZtVUb2OIgqXiGdnJzTz+BXbBfa2znmryq/RpKsFe5G5XJ10kmji2xSQYL2M/zJt+MAdFQanVTqZtWv5a/ef0WeLDGGItP5p+0MULniZrfYbNGMhuPm6RvU9XLSkzyiJ9Y+1Y/ltaImN49J+8/4bzT7nSsfMzaFOTsxl3vSccvPn+Ss9DbnE2j07fPyhaivGYr3/b4bhT0dCAgoUFSgyoJQEBBjmjEsZY4uAP1SQftC1tWLRtLMTt6Odu1sr6VjprfXVTmjeYnSEkeRzvVRq9LqMcc8N529k7BmxW8uSsfq1lDqWtp3t9YcKiLmHDDh5FQMHimek+frCXl0OO0eXpLs6Sojqqdk8LtqN4yCvSYslctIvT0lT2pNJ4yykro1cx4gWaPUWnp7c2ohhqdpskD5X4aHNOd55A7xw5rjkmkxtMuuHlW28RMvH67w41PSR+lZSQVsfN1FOJPuIBPwBUWcG/WJ3S/q1jpPRy88MtPK6KoifFI04cyRpaR5grjNZj1dN+m8PSvBjTk8lwffqmMsp42GOnLvpuPEjsOqmafHMdZRtReNuMPZhwUpEQRlBw+tPDmg1HK6tpJvUbgR7cgZtMl/mbkb+4I75XK+Kt+su2PNNOnZ5vd9Cai0o2O7FtNVRU0geXUz3OLADxc0tG7rjOOe5Rvo2x+ZIjNW+8ej2Cw6rt94sLbs13o2gYkjJ9pj+be6731OOmP6lp6I30bzfhDm4aerr62Se3wyA7ZdlpxsZPVeVpjzZ8tr4Y7/uurXx4qRXJPZvKWyV9U8C4mOKDa2ntjxtSnvhWuLQ6jLtGfaK99u/6oN9Rip/t9Z/Z0scTYmtawANaMAAcFdVrFYiIV0zM9ZZFsBQQgqUFcIMiCUBAQEEOGViRw+qbeKOtE0Q2Y5skY5O5ry/immjFli1fSy50WaclOM+sNloup+Ynps+64PaOgPFTfBsnktj9nDxGnmi/urqK/PY80tE7ZI3SSDl2Cx4j4hNZnFj+5pNJFo53cs47bi5xLnHiXHJVBaZtO9usraIiOkJie+B23C90burHYK2pe1J3pMx+jW1ItG0w+yasp7gI2Xy309wYwgtdIwbbfj07Kzw+LZabRljeP+0O+ir6452l19tutvqI2x0z2x7IwIiA3A6BXeDW4M3SkqzLp8mP1htAdymOCc9kEcd6wNZdbtR0EbhKRI8jHom7yexUTU67FgjzTvPt3d8OmvlnesdPd55cKuCgt0ssVM2Ckp8vbBCz2Wkn8zzXnbZMutybdv2XNKV09fl12gr9ab1aWtth2JYgPTwP99rup6juNy9JpcePFjimNTajnN5mzqBxUpwWQEAoIQVKCqDIglAQEBBB3oNRqmmE9olcB7UPzg+HH7lXeKYfqaa3vHVK0eThmhx1vrJaGR74Pfews+3815vTai+Gd6+srnLhrkrHLt1bu3aWdKxstfM9hO/YZx+JKtNP4PNo5ZpQMuvivlxw2bNM2wDBilcevpCp0eE6X23/ujzrs/upJpe2v9wSxns8n8Vi3hGmn06Mxr80evV8NTpLAPqtUT2lb+iiZPBdo3x2+7tTxH/nDT1dmuFJvfTOc0fTiy4fdwVbl0OoxTvau/wAx1TKavDk6b/2VpbtXU4xDVOwPok5C1x63Ni/Lb/1tbS4r9n2/4muI+lH/AEKVHi+p+HD/AOfhfPU3y5VDdl05aOkYwuWXxHUZOk22dMejxV9I3fPQUNTcp9iBpcc+3I7g3zP5Ljp9Pl1OTav95dMuamGOv2drSWWjp7fJRyRiVkrS2bbGdvK9VpdLTBTjCjzZ7Zb8nh2qrNcdBalZPbppIoZCXUdQOY4ujd1I6cx8VzvW2K3KEjHauSu0vVtA61p9U0pilDYblCPnYs7nD6ze34KVjyReEbLimk/Dr10chAKCEFUEYQXQSgICAgIKTMbLG6N/uuBB8lresWrNZ7sxO07vO7ewU92gZOcCKfZfnqDheO09eGprW3aXoM0zbBM19m1vtPeHXKYw+suiPuGJzgAPgrDXU1k55mm+3baUTS308Y4i22/zD4PV719Wv/rf+qifT1v9X3/ykc9N8faD0F7x7tf/AFv/AFWYxa7+r7z/ACc9N8faD0F6HK4f/R/6p9LXf1fef5Oem+PtCWQ3zbGz6/tZ3Ze78ylcev3jbl9/8sWtpOMxOzsJLbS1kDPXaeN8uyNp2N+fNeitpceWkfVr1VEZrUnyT0c8KGwVF6ktNJWSmsiZ6SWKNwcIx/EcbjvHdQ7eE6a0+XdKjW5q13mIbSDS1vY7akMsv8LnYH3ALenhOCs7zvLS+vy2jZuIKeKnjEcDGxsHBrRhWNMdaRtWNkO1ptO8yyYW7DWaksVHqG0TW6uadh+9jx70bx7rh3C1tWLRtLatprO8PK9F6Jv9m13TungLaWmLi6qZujlbjAA+7d2UfHitS+6Tky1tT5e0KUiCAUEIKlBGUF0EoCAgICCHIOB1JT+r3mYtOBJiQds8fvC8n4lScWptaO/Ve6K8XwxE/o3fynWVumKuS2AOucULgxhIyX43far3Ran6+HfvCsz4YxZdp9HjJvOvcnMt/wA88Uj/ANi23zdodppi+EfLGvP9W/8A9o/9ics7HHF8J+Wdef6t/wD7R/7FnlnZ4YvhHyzrzf8AO3/+0f8AsWN83sccfw7qp1jdbH4eUz7ttNv9XtxwNlbh4btHEjm8vZx03/FdpycadfVwjHE5OnozeCdsdHaK27T5dLWzFoe7i4N4nPdxP2Jgjy8p7saievH2elALujpQEBBGEEoCAUEIKlBVBkQSEBAQEBBBGUGk1NaXV8LJoBmeLOG/XHRVfiWinPWL0/NCZpNR9KeNvSXJ0dVVWurD2NLHj2XMfkBw6FUGLNl0uXlEbTHZbZMVNRTbfp7ukmvdRcbe9tkqKWnueMsjrWFzCeY3EH4jh0K9HpvEMOojpO0+yny6W+Kesbw89u3iBryzTGG5WyghcD7xpJC0+ThJgrtbJkrPWGYxYrem7Wu8XtT/AFLR/byZ/wCxafibezb8PT5QfFvVP1bV8KZ/70/EWnsz+HxtTSUGoteXz0j3STSPIElTI3EcDfLcOuGjj961itstt7MzamOu0P0FZ7bTWi10tvo2kQU8YY3PE45nueJU6I2jZBtPK3KX2rLAgICAgICAUEIKlBVBcIJCCUBAQEBAQfFc5KSmgdUVcbHBo+k0EnsFH1FsWOnPJHSHTHW97caOPqb6S8+ho6SJnQxArzuTxO0zypWIj9FtXRVivntO7aWvUTapwpbjDGA/cHAez5EFTtJ4rF7RTLHr6I2o0PCOVJRqys09pq2mvr7dSPcXbEUTYGF8r8ZwN3xzyVzaa1jeUKlbXnaHktb4j1zqkupLbZaaIbxGaRryB57vwUb689oS4wRt13d1oHxGhvFVHabjTRUdU/IgdDujkPTHI9l1xZYu4ZcE16w9JG8Bd0dKAgICAgICCEAoKFBVBkCCUEoCAgICAg5bW73bNKz6BLie5VF41a0VrHZZ+GxHKZ7vr0tSU3yVHOGNfLIXbbiN/EjCkeFYsf0Iv3nfdw1uS85ZiejQ6op4aa5kU+G7TNpzW8iqnxPHTHn2p03jqn6G9rY/M4bxjqqmW52iOQEsbbmyNb/G5ztr/i1XU2m2Kk27xCJirEXtt7vTdC2i10ulKD1WCGQVFO2SWQsBMjiN+eu/d8FNpWsV6IV7TNp3eMeIVPBY9Y1rbKBGIHMmiaz/AMcmA7A8nclFyREZY2TMW9sfV+jhwGRg9FOQEoCAgICAgIIQQgqUFEGQILckBBKAgICAg1OoaSGupPRveGSN9pjjyKh63SxqcfHv2d9PnnDflDi4a6roJJI4Kkxb/aa0gg/avOxGs0vlrvH7Le34fP5p2fXa6CS51fpKqQ+jzl7nHe5dtNoc2pycsvp893LNqceKnHH6vo8StKR6jtUTqaRkVfR5MBfuD2niwnlwBzyx3K9HkxRau3sq8WXjbq8ip7nqrTzZLfS1ddSRlxzExoc3PVpIOPhhRonLTypf+lbq6Hw/0ZUXO7Q3W+EspopBMI5HZkneDkZ7Zwd/Hh1W+LFbflZzy5oiONXuQ4KWhpQEBAQEBAQQgqUFXFBjJQZQgsEEoJQEBAQEFXsa7c5oI7hBhNFSk5NPET/KEF2QRR+5G1vkEF3Ma/c5oI7hBhNFSk5NPGT/AChBdkEUfuRsb5BBlQEBAQEBAQQghBUoKEoKEoMoKC4QEEhBKAgICAgICAgICAgICAgICCEBBQoKkoMbigoSgzAoLAoLhACCQglAQEBAQEBAQEBAQEBAQQgIIJQUJQUJQY3FBiJQZ2lBcFBcFBIQSglACCUBAQEBAQEBAQEEICCEAoKEoKkoMbigwvcgwl29B9LXIMjSguCguCgkFBIQSgICCUBAQEBAQQgICCMoIygqSgqSgxucgxOcgwvcg+cu3oPqY9Bma5BkBQXBQWBQSCgkIJQSgICAgICAgIIQMoK5QVJQVJQUc5Bic5Bhe5B88j0HzmTeg//Z"
-        alt="logo"
-      />
-    </div>
-    <div className="nav-items">
-      <ul>
-        <li>Home</li>
-        <li>About</li>
-        <li>Contact us</li>
-        <li>Cart</li>
-      </ul>
-    </div>
-  </div>
+/* My Food App structure will look like this, 
+            1) Header
+                - Logo
+                - Nav Items(right side)
+                - Cart
+            2) Body
+                - Search bar
+                - Restaurants List
+                    - Restaurant card
+                        - Image
+                        - Name
+                        - Rating
+            3) Footer
+                - Links
+                - Copyrights
+       
+*/
+
+// Title component for display logo
+const Title = () => (
+  <a href="/">
+    <img className="logo" src={foodFireLogo} alt="Food Fire Logo" />
+  </a>
 );
 
-const RestaurantCard = (props) => (
-  <div className="flex">
-    {console.log(props)}
-    <div className="res-card bg-gray-100 p-5 m-5 ml-20 hover:cursor-pointer">
-      <div>
-        <img
-          src={props.img}
-          alt="restaurant"
-        />
+// Header component for header section: Logo, Nav Items
+const Header = () => {
+  return (
+    <div className="header">
+      <Title />
+      <div className="nav-items">
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Contact</li>
+          <li>
+            <i class="fa-solid fa-cart-shopping"></i>
+          </li>
+        </ul>
       </div>
-      <h3 className="p-3 text-center">{props.resName}</h3>
-      <h4 className="text-center"> {props.cusine}</h4>
-      <h4 className="p-3 text-center">{props.rating}</h4>
     </div>
-  </div>
-);
+  );
+};
 
-const Body = () => (
-  <div className="body">
-    <div className="Search">
-      <h1 className="text-7xl text-center text-blue-400">Search</h1>
-    </div>
-    <div className="res-container flex flex-wrap" >
-      <RestaurantCard 
-      resName="Meghana Foods"
-      cusine="Biryani,North Indian, South ,Asian"
-      img="data:image/jpeg;base64,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"
-      rating="4.8"
-      />
-      <RestaurantCard 
-      resName="Raghvendra Foods"
-      cusine="Veg Noodles, Tiffins"
-      img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1os2P1F0W1YHL-kV1YRwBfktFzdGFzTO0vg&usqp=CAU"
-      
-      rating="4.9"
-      />
-      
-    </div>
-  </div>
-);
+// RestaurantList is JSON Data for displaying cards
+const restaurantList = [
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "74453",
+      name: "Domino's Pizza",
+      uuid: "87727dbd-7f2b-4857-9763-359624165845",
+      city: "21",
+      area: "Athwa",
+      totalRatingsString: "1000+ ratings",
+      cloudinaryImageId: "bz9zkh2aqywjhpankb07",
+      cuisines: ["Pizzas"],
+      tags: [],
+      costForTwo: 40000,
+      costForTwoString: "₹400 FOR TWO",
+      deliveryTime: 45,
+      minDeliveryTime: 45,
+      maxDeliveryTime: 45,
+      slaString: "45 MINS",
+      lastMileTravel: 0,
+      slugs: {
+        restaurant: "dominos-pizza-majura-nondh-test_surat",
+        city: "surat",
+      },
+      cityState: "21",
+      address:
+        "Shop 32 To 35, Sheetal Shopping Square,Near Lb Turning Point, Bhatar Road,MAJURA NONDH, Surat,GUJARAT-395001",
+      locality: "Bhatar Road",
+      parentId: 2456,
+      unserviceable: false,
+      veg: true,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      aggregatedDiscountInfo: {
+        header: "FREE DELIVERY",
+        shortDescriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      aggregatedDiscountInfoV2: {
+        header: "",
+        shortDescriptionList: [
+          {
+            meta: "Free Delivery",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      chain: [],
+      feeDetails: {
+        fees: [],
+        totalFees: 0,
+        message: "",
+        title: "",
+        amount: "",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "2.1 kms",
+      hasSurge: false,
+      sla: {
+        restaurantId: "74453",
+        deliveryTime: 45,
+        minDeliveryTime: 45,
+        maxDeliveryTime: 45,
+        lastMileTravel: 0,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.0",
+      totalRatings: 1000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "410476",
+      name: "The Brooklyn Creamery - Healthy Ice Cream",
+      uuid: "82e23b48-b6bd-4ee0-9746-06737ec062b0",
+      city: "21",
+      area: "althan bhatar",
+      totalRatingsString: "100+ ratings",
+      cloudinaryImageId: "ldtibwymvzehvmdwl8la",
+      cuisines: ["Desserts", "Ice Cream", "Healthy Food"],
+      tags: [],
+      costForTwo: 20000,
+      costForTwoString: "₹200 FOR TWO",
+      deliveryTime: 31,
+      minDeliveryTime: 30,
+      maxDeliveryTime: 40,
+      slaString: "30-40 MINS",
+      lastMileTravel: 6.300000190734863,
+      slugs: {
+        restaurant: "the-brooklyn-creamery-low-cal-ice-cream-adajan-fc-adajan",
+        city: "surat",
+      },
+      cityState: "21",
+      address:
+        "C paiki, Chalta no. 23, Guru Ashish Building, Ground Floor, Opp Kotyark Nagar, Rander Road, Surat 395005",
+      locality: "Adajan FC",
+      parentId: 236673,
+      unserviceable: true,
+      veg: true,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      aggregatedDiscountInfo: {
+        header: "FREE DELIVERY",
+        shortDescriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      aggregatedDiscountInfoV2: {
+        header: "",
+        shortDescriptionList: [
+          {
+            meta: "Free Delivery",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      chain: [],
+      feeDetails: {
+        fees: [],
+        totalFees: 0,
+        message: "",
+        title: "",
+        amount: "",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "6.3 kms",
+      hasSurge: false,
+      sla: {
+        restaurantId: "410476",
+        deliveryTime: 31,
+        minDeliveryTime: 30,
+        maxDeliveryTime: 40,
+        lastMileTravel: 6.300000190734863,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE_WITH_BANNER",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.4",
+      totalRatings: 100,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "81094",
+      name: "Richie Rich Juices & Shakes",
+      uuid: "40b0b55b-e9af-43e7-aeae-be1b012d0b1d",
+      city: "21",
+      area: "Athwa",
+      totalRatingsString: "500+ ratings",
+      cloudinaryImageId: "nyp7yrzwc1dc2xqfkydk",
+      cuisines: ["Ice Cream"],
+      tags: [],
+      costForTwo: 25000,
+      costForTwoString: "₹250 FOR TWO",
+      deliveryTime: 30,
+      minDeliveryTime: 30,
+      maxDeliveryTime: 40,
+      slaString: "30-40 MINS",
+      lastMileTravel: 5.599999904632568,
+      slugs: {
+        restaurant: "juices-shakes-by-richie-rich-athwa-athwa",
+        city: "surat",
+      },
+      cityState: "21",
+      address:
+        "Richie Rich Building , Opposite Golden Square Complex, Parle Point, Athwa, Surat",
+      locality: "Parle Point",
+      parentId: 771,
+      unserviceable: true,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      aggregatedDiscountInfo: {
+        header: "FREE DELIVERY",
+        shortDescriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      aggregatedDiscountInfoV2: {
+        header: "",
+        shortDescriptionList: [
+          {
+            meta: "Free Delivery",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      chain: [],
+      feeDetails: {
+        fees: [],
+        totalFees: 0,
+        message: "",
+        title: "",
+        amount: "",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "5.5 kms",
+      hasSurge: false,
+      sla: {
+        restaurantId: "81094",
+        deliveryTime: 30,
+        minDeliveryTime: 30,
+        maxDeliveryTime: 40,
+        lastMileTravel: 5.599999904632568,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE_WITH_BANNER",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "3.9",
+      totalRatings: 500,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "311443",
+      name: "Siddhi Icecream & Thick Shake",
+      uuid: "1ca3e8c2-e5da-4b59-8f7e-868991cb40b7",
+      city: "21",
+      area: "Nanpura",
+      totalRatingsString: "100+ ratings",
+      cloudinaryImageId: "spd3y5gok3vvwqulgmda",
+      cuisines: ["Ice Cream", "Juices", "Desserts", "Beverages"],
+      tags: [],
+      costForTwo: 20000,
+      costForTwoString: "₹200 FOR TWO",
+      deliveryTime: 30,
+      minDeliveryTime: 25,
+      maxDeliveryTime: 35,
+      slaString: "25-35 MINS",
+      lastMileTravel: 3,
+      slugs: {
+        restaurant: "siddhi-icecream-athwa-athwa",
+        city: "surat",
+      },
+      cityState: "21",
+      address:
+        "siddhi icecream, Kadampally Society, Timaliawad, Nanpura, Surat, Gujarat, India",
+      locality: "Athwa",
+      parentId: 387846,
+      unserviceable: true,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      aggregatedDiscountInfo: {
+        header: "FREE DELIVERY",
+        shortDescriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      aggregatedDiscountInfoV2: {
+        header: "",
+        shortDescriptionList: [
+          {
+            meta: "Free Delivery",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      chain: [],
+      feeDetails: {
+        fees: [],
+        totalFees: 0,
+        message: "",
+        title: "",
+        amount: "",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "3 kms",
+      hasSurge: false,
+      sla: {
+        restaurantId: "311443",
+        deliveryTime: 30,
+        minDeliveryTime: 25,
+        maxDeliveryTime: 35,
+        lastMileTravel: 3,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE_WITH_BANNER",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.5",
+      totalRatings: 100,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "307070",
+      name: "Pizza Pie",
+      uuid: "68598bcb-7460-4466-a8b2-113158c6cf8c",
+      city: "21",
+      area: "Nanpura",
+      totalRatingsString: "50+ ratings",
+      cloudinaryImageId: "bvr70adr30ejyr5ua79k",
+      cuisines: ["Pizzas"],
+      tags: [],
+      costForTwo: 30000,
+      costForTwoString: "₹300 FOR TWO",
+      deliveryTime: 37,
+      minDeliveryTime: 35,
+      maxDeliveryTime: 45,
+      slaString: "35-45 MINS",
+      lastMileTravel: 4,
+      slugs: {
+        restaurant: "pizza-pie-athwa-athwa",
+        city: "surat",
+      },
+      cityState: "21",
+      address:
+        "1/704 Sarang building, Nanpura New Rd, opposite river palace, near Ramji Mandir, Nanpura, Surat, Gujarat",
+      locality: "Nanpura",
+      parentId: 158854,
+      unserviceable: true,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      aggregatedDiscountInfo: {
+        header: "FREE DELIVERY",
+        shortDescriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      aggregatedDiscountInfoV2: {
+        header: "",
+        shortDescriptionList: [
+          {
+            meta: "Free Delivery",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      chain: [],
+      feeDetails: {
+        fees: [],
+        totalFees: 0,
+        message: "",
+        title: "",
+        amount: "",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "4 kms",
+      hasSurge: false,
+      sla: {
+        restaurantId: "307070",
+        deliveryTime: 37,
+        minDeliveryTime: 35,
+        maxDeliveryTime: 45,
+        lastMileTravel: 4,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE_WITH_BANNER",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.2",
+      totalRatings: 50,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "76858",
+      name: "Feeling Hungry",
+      uuid: "45f9ea54-f3cf-4f6b-8d85-e3468657fe51",
+      city: "21",
+      area: "Athwa",
+      totalRatingsString: "1000+ ratings",
+      cloudinaryImageId: "oxsb5mr1xsmhnxhunjsc",
+      cuisines: ["Chinese", "North Indian", "Biryani"],
+      tags: [],
+      costForTwo: 2000,
+      costForTwoString: "₹20 FOR TWO",
+      deliveryTime: 35,
+      minDeliveryTime: 30,
+      maxDeliveryTime: 40,
+      slaString: "30-40 MINS",
+      lastMileTravel: 3.700000047683716,
+      slugs: {
+        restaurant: "feeling-hungry-adajan-gam-adajan",
+        city: "surat",
+      },
+      cityState: "21",
+      address:
+        "GF shop no 1, Babubhai Chambers, Beside Sardar Bridge , Athwagate, surat",
+      locality: "Royal Residency, Adajan Gam",
+      parentId: 79237,
+      unserviceable: true,
+      veg: true,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      aggregatedDiscountInfo: {
+        header: "FREE DELIVERY",
+        shortDescriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      aggregatedDiscountInfoV2: {
+        header: "",
+        shortDescriptionList: [
+          {
+            meta: "Free Delivery",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      chain: [],
+      feeDetails: {
+        fees: [],
+        totalFees: 0,
+        message: "",
+        title: "",
+        amount: "",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "3.7 kms",
+      hasSurge: false,
+      sla: {
+        restaurantId: "76858",
+        deliveryTime: 35,
+        minDeliveryTime: 30,
+        maxDeliveryTime: 40,
+        lastMileTravel: 3.700000047683716,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE_WITH_BANNER",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "3.2",
+      totalRatings: 1000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "617279",
+      name: "Malaxmi Fast Food",
+      uuid: "4848cb1b-b1c4-4a6e-9a6d-f96b781357db",
+      city: "21",
+      area: "Adajan",
+      totalRatingsString: "20+ ratings",
+      cloudinaryImageId: "agkm7cflq72tkualhstb",
+      cuisines: ["Fast Food", "Pizzas", "Snacks", "Beverages"],
+      tags: [],
+      costForTwo: 20000,
+      costForTwoString: "₹200 FOR TWO",
+      deliveryTime: 44,
+      minDeliveryTime: 40,
+      maxDeliveryTime: 50,
+      slaString: "40-50 MINS",
+      lastMileTravel: 9.100000381469727,
+      slugs: {
+        restaurant: "mahalaxmi-fast-food-adajan-adajan-2",
+        city: "surat",
+      },
+      cityState: "21",
+      address: "shop no 15,palanpur food zone,opp.sai trith,pal gam suart",
+      locality: "Palanpur Food Zone",
+      parentId: 373635,
+      unserviceable: true,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      aggregatedDiscountInfo: {
+        header: "FREE DELIVERY",
+        shortDescriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      aggregatedDiscountInfoV2: {
+        header: "",
+        shortDescriptionList: [
+          {
+            meta: "Free Delivery",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      chain: [],
+      feeDetails: {
+        fees: [],
+        totalFees: 0,
+        message: "",
+        title: "",
+        amount: "",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "9.1 kms",
+      hasSurge: false,
+      sla: {
+        restaurantId: "617279",
+        deliveryTime: 44,
+        minDeliveryTime: 40,
+        maxDeliveryTime: 50,
+        lastMileTravel: 9.100000381469727,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE_WITH_BANNER",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.0",
+      totalRatings: 20,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "469264",
+      name: "Dessert House",
+      uuid: "7a320917-c577-49cb-875a-1e585a3adbc1",
+      city: "21",
+      area: "Piplod",
+      totalRatingsString: "Too Few Ratings",
+      cloudinaryImageId: "jegpumsjcmomksbr2sxr",
+      cuisines: ["Desserts", "Ice Cream"],
+      tags: [],
+      costForTwo: 15000,
+      costForTwoString: "₹150 FOR TWO",
+      deliveryTime: 27,
+      minDeliveryTime: 25,
+      maxDeliveryTime: 35,
+      slaString: "25-35 MINS",
+      lastMileTravel: 6.199999809265137,
+      slugs: {
+        restaurant: "dessert-house-piplod-piplod",
+        city: "surat",
+      },
+      cityState: "21",
+      address:
+        "SHOP NO 2, MARVELLA CORRIDOR OPP. C B PATEL HEALTH CLUB V.I.P ROAD, VESU",
+      locality: "Piplod",
+      parentId: 71430,
+      unserviceable: true,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      aggregatedDiscountInfo: {
+        header: "FREE DELIVERY",
+        shortDescriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      aggregatedDiscountInfoV2: {
+        header: "",
+        shortDescriptionList: [
+          {
+            meta: "Free Delivery",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      chain: [],
+      feeDetails: {
+        fees: [],
+        totalFees: 0,
+        message: "",
+        title: "",
+        amount: "",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "6.1 kms",
+      hasSurge: false,
+      sla: {
+        restaurantId: "469264",
+        deliveryTime: 27,
+        minDeliveryTime: 25,
+        maxDeliveryTime: 35,
+        lastMileTravel: 6.199999809265137,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE_WITH_BANNER",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.5",
+      totalRatings: 0,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "395204",
+      name: "McDonald's Gourmet Burger Collection",
+      uuid: "55c33a9b-bb51-4b9d-8c94-708d48b08ebd",
+      city: "21",
+      area: "Piplod",
+      totalRatingsString: "100+ ratings",
+      cloudinaryImageId: "wzbo5xivr8hstl0vxzcm",
+      cuisines: ["Burgers", "Beverages", "Cafe", "Desserts"],
+      tags: [],
+      costForTwo: 50000,
+      costForTwoString: "₹500 FOR TWO",
+      deliveryTime: 31,
+      minDeliveryTime: 30,
+      maxDeliveryTime: 40,
+      slaString: "30-40 MINS",
+      lastMileTravel: 8.199999809265137,
+      slugs: {
+        restaurant:
+          "mcdonalds-gourmet-burger-collection-valentine-cinema-piplod",
+        city: "surat",
+      },
+      cityState: "21",
+      address:
+        "MC Donalds Family Restaurant Valentine Mall Valentine Cine Vision Surat , Dhumas Road, Nr Govardhan Haveli, Surat 395007",
+      locality: "Valentine Cinema",
+      parentId: 10761,
+      unserviceable: true,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      aggregatedDiscountInfo: {
+        header: "FREE DELIVERY",
+        shortDescriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      aggregatedDiscountInfoV2: {
+        header: "",
+        shortDescriptionList: [
+          {
+            meta: "Free Delivery",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      chain: [],
+      feeDetails: {
+        fees: [],
+        totalFees: 0,
+        message: "",
+        title: "",
+        amount: "",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "8.1 kms",
+      hasSurge: false,
+      sla: {
+        restaurantId: "395204",
+        deliveryTime: 31,
+        minDeliveryTime: 30,
+        maxDeliveryTime: 40,
+        lastMileTravel: 8.199999809265137,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE_WITH_BANNER",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.2",
+      totalRatings: 100,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "193541",
+      name: "Behrouz Biryani",
+      uuid: "abc2e9d1-df00-4449-bde3-4c35982d0ef3",
+      city: "21",
+      area: "Adajan Patiya",
+      totalRatingsString: "1000+ ratings",
+      cloudinaryImageId: "craozjakzx7sll2uracb",
+      cuisines: [
+        "Biryani",
+        "Mughlai",
+        "Lucknowi",
+        "Hyderabadi",
+        "Kebabs",
+        "North Indian",
+        "Persian",
+        "Desserts",
+      ],
+      tags: [],
+      costForTwo: 50000,
+      costForTwoString: "₹500 FOR TWO",
+      deliveryTime: 49,
+      minDeliveryTime: 45,
+      maxDeliveryTime: 55,
+      slaString: "45-55 MINS",
+      lastMileTravel: 6.400000095367432,
+      slugs: {
+        restaurant: "behrouz-biryani-adajan-adajan",
+        city: "surat",
+      },
+      cityState: "21",
+      address:
+        "Chalta no 23, Ground Floor, Guru Ashish Building, Below Stallon Gym, Opp Kotyark Nagar, Near Navyug College, Adajan, Surat 395005",
+      locality: "Nr Navyug College, Rander Road",
+      parentId: 1803,
+      unserviceable: true,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      aggregatedDiscountInfo: {
+        header: "FREE DELIVERY",
+        shortDescriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      aggregatedDiscountInfoV2: {
+        header: "",
+        shortDescriptionList: [
+          {
+            meta: "Free Delivery",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      chain: [],
+      feeDetails: {
+        fees: [],
+        totalFees: 0,
+        message: "",
+        title: "",
+        amount: "",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "6.4 kms",
+      hasSurge: false,
+      sla: {
+        restaurantId: "193541",
+        deliveryTime: 49,
+        minDeliveryTime: 45,
+        maxDeliveryTime: 55,
+        lastMileTravel: 6.400000095367432,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE_WITH_BANNER",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.3",
+      totalRatings: 1000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "475510",
+      name: "Momos House",
+      uuid: "34320d9a-ffa7-450c-ad61-d50485306626",
+      city: "21",
+      area: "Piplod",
+      totalRatingsString: "Too Few Ratings",
+      cloudinaryImageId: "vmold2zualdrrypxcvue",
+      cuisines: ["Fast Food"],
+      tags: [],
+      costForTwo: 20000,
+      costForTwoString: "₹200 FOR TWO",
+      deliveryTime: 31,
+      minDeliveryTime: 30,
+      maxDeliveryTime: 40,
+      slaString: "30-40 MINS",
+      lastMileTravel: 6.199999809265137,
+      slugs: {
+        restaurant: "momo’s-house-piplod-piplod",
+        city: "surat",
+      },
+      cityState: "21",
+      address:
+        "SHOP NO - 2, MARVELLA CORRIDOR, OPP. C B PATEL HEALTH CLUB, V.I.P. ROAD, Surat,, Vesu , Surat Municipal Corporation, Surat Municipal Corporation, Gujarat - 395007",
+      locality: "Vesu",
+      parentId: 15884,
+      unserviceable: true,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      aggregatedDiscountInfo: {
+        header: "FREE DELIVERY",
+        shortDescriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      aggregatedDiscountInfoV2: {
+        header: "",
+        shortDescriptionList: [
+          {
+            meta: "Free Delivery",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      chain: [],
+      feeDetails: {
+        fees: [],
+        totalFees: 0,
+        message: "",
+        title: "",
+        amount: "",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "6.1 kms",
+      hasSurge: false,
+      sla: {
+        restaurantId: "475510",
+        deliveryTime: 31,
+        minDeliveryTime: 30,
+        maxDeliveryTime: 40,
+        lastMileTravel: 6.199999809265137,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE_WITH_BANNER",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.1",
+      totalRatings: 0,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "127596",
+      name: "Sabir Chicken",
+      uuid: "f0f49821-52ed-4435-9014-c845e964a3d8",
+      city: "21",
+      area: "Chowk Bazar",
+      totalRatingsString: "5000+ ratings",
+      cloudinaryImageId: "kilrdjqt8chduasii5ni",
+      cuisines: ["North Indian", "Biryani"],
+      tags: [],
+      costForTwo: 30000,
+      costForTwoString: "₹300 FOR TWO",
+      deliveryTime: 30,
+      minDeliveryTime: 25,
+      maxDeliveryTime: 35,
+      slaString: "25-35 MINS",
+      lastMileTravel: 4.300000190734863,
+      slugs: {
+        restaurant: "sabir-chicken-athwa-athwa",
+        city: "surat",
+      },
+      cityState: "21",
+      address:
+        "Nehru Bridge, Behind Nagin Chand Hall, Chowk Bazar, Surat, Gujarat 395003",
+      locality: "Chowk Bazar",
+      parentId: 173978,
+      unserviceable: true,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      aggregatedDiscountInfo: {
+        header: "FREE DELIVERY",
+        shortDescriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      aggregatedDiscountInfoV2: {
+        header: "",
+        shortDescriptionList: [
+          {
+            meta: "Free Delivery",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      chain: [],
+      feeDetails: {
+        fees: [],
+        totalFees: 0,
+        message: "",
+        title: "",
+        amount: "",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "4.3 kms",
+      hasSurge: false,
+      sla: {
+        restaurantId: "127596",
+        deliveryTime: 30,
+        minDeliveryTime: 25,
+        maxDeliveryTime: 35,
+        lastMileTravel: 4.300000190734863,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE_WITH_BANNER",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.1",
+      totalRatings: 5000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "64656",
+      name: "Mahesh Pav Bhaji",
+      uuid: "ccfda4b9-82b1-4f22-9567-eb98c448b267",
+      city: "21",
+      area: "Adajan",
+      totalRatingsString: "10000+ ratings",
+      cloudinaryImageId: "84d3bea985f13bd980dc39c9c73bc87f",
+      cuisines: ["Desserts", "Chinese", "South Indian", "Ice Cream", "Pizzas"],
+      tags: [],
+      costForTwo: 25000,
+      costForTwoString: "₹250 FOR TWO",
+      deliveryTime: 36,
+      minDeliveryTime: 35,
+      maxDeliveryTime: 45,
+      slaString: "35-45 MINS",
+      lastMileTravel: 6.900000095367432,
+      slugs: {
+        restaurant: "mahesh-pav-bhaji-adajan-gam-adajan",
+        city: "surat",
+      },
+      cityState: "21",
+      address:
+        "Shop 12, Garden View Apartment, Honey Park Road, Adajan Gam, Surat",
+      locality: "Adajan Gam",
+      parentId: 6553,
+      unserviceable: true,
+      veg: true,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      aggregatedDiscountInfo: {
+        header: "30% off",
+        shortDescriptionList: [
+          {
+            meta: "30% off | Use JUMBO",
+            discountType: "Percentage",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "30% off up to ₹150 on orders above ₹400 | Use code JUMBO",
+            discountType: "Percentage",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      aggregatedDiscountInfoV2: {
+        header: "30% OFF",
+        shortDescriptionList: [
+          {
+            meta: "Use JUMBO",
+            discountType: "Percentage",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "30% off up to ₹150 on orders above ₹400 | Use code JUMBO",
+            discountType: "Percentage",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      chain: [],
+      feeDetails: {
+        fees: [],
+        totalFees: 0,
+        message: "",
+        title: "",
+        amount: "",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "6.9 kms",
+      hasSurge: false,
+      sla: {
+        restaurantId: "64656",
+        deliveryTime: 36,
+        minDeliveryTime: 35,
+        maxDeliveryTime: 45,
+        lastMileTravel: 6.900000095367432,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE_WITH_BANNER",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.1",
+      totalRatings: 10000,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "255204",
+      name: "The Dango Cake Shop",
+      uuid: "dbfd3f3c-77a6-4979-96c4-ce9863e54cdc",
+      city: "21",
+      area: "Galaxy Circle",
+      totalRatingsString: "50+ ratings",
+      cloudinaryImageId: "mnvfpsoealkflze4e5qi",
+      cuisines: ["Bakery"],
+      tags: [],
+      costForTwo: 27000,
+      costForTwoString: "₹270 FOR TWO",
+      deliveryTime: 34,
+      minDeliveryTime: 30,
+      maxDeliveryTime: 40,
+      slaString: "30-40 MINS",
+      lastMileTravel: 7.699999809265137,
+      slugs: {
+        restaurant: "twisted-cake-live-cake-adajan-adajan",
+        city: "surat",
+      },
+      cityState: "21",
+      address: "44 La Victoria, galaxy circle pal Surat",
+      locality: "Galaxy Circle",
+      parentId: 207513,
+      unserviceable: true,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      aggregatedDiscountInfo: {
+        header: "FREE DELIVERY",
+        shortDescriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      aggregatedDiscountInfoV2: {
+        header: "",
+        shortDescriptionList: [
+          {
+            meta: "Free Delivery",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      chain: [],
+      feeDetails: {
+        fees: [],
+        totalFees: 0,
+        message: "",
+        title: "",
+        amount: "",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "7.6 kms",
+      hasSurge: false,
+      sla: {
+        restaurantId: "255204",
+        deliveryTime: 34,
+        minDeliveryTime: 30,
+        maxDeliveryTime: 40,
+        lastMileTravel: 7.699999809265137,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE_WITH_BANNER",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "4.2",
+      totalRatings: 50,
+      new: false,
+    },
+    subtype: "basic",
+  },
+  {
+    type: "restaurant",
+    data: {
+      type: "F",
+      id: "664656",
+      name: "Cheezylicious Cafe",
+      uuid: "5880e561-10ed-4f96-990b-2251e2f09c82",
+      city: "21",
+      area: "Piplod",
+      totalRatingsString: "Too Few Ratings",
+      cloudinaryImageId: "fda9ad56b9d62070fec105cd93693129",
+      cuisines: [
+        "Cafe",
+        "Fast Food",
+        "Chinese",
+        "Snacks",
+        "Italian",
+        "Mexican",
+      ],
+      tags: [],
+      costForTwo: 15000,
+      costForTwoString: "₹150 FOR TWO",
+      deliveryTime: 38,
+      minDeliveryTime: 35,
+      maxDeliveryTime: 45,
+      slaString: "35-45 MINS",
+      lastMileTravel: 7.599999904632568,
+      slugs: {
+        restaurant: "cheezylicious-cafe-piplod-piplod-2",
+        city: "surat",
+      },
+      cityState: "21",
+      address:
+        "Shop no G10 ground floor, aagam square B/S Dream heritage, Canal road, Vesu",
+      locality: "Dream heritage",
+      parentId: 59292,
+      unserviceable: true,
+      veg: false,
+      select: false,
+      favorite: false,
+      tradeCampaignHeaders: [],
+      aggregatedDiscountInfo: {
+        header: "FREE DELIVERY",
+        shortDescriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      aggregatedDiscountInfoV2: {
+        header: "",
+        shortDescriptionList: [
+          {
+            meta: "Free Delivery",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        descriptionList: [
+          {
+            meta: "FREE DELIVERY",
+            discountType: "FREE_DELIVERY",
+            operationType: "RESTAURANT",
+          },
+        ],
+        subHeader: "",
+        headerType: 0,
+        superFreedel: "",
+      },
+      chain: [],
+      feeDetails: {
+        fees: [],
+        totalFees: 0,
+        message: "",
+        title: "",
+        amount: "",
+        icon: "",
+      },
+      availability: {
+        opened: true,
+        nextOpenMessage: "",
+        nextCloseMessage: "",
+      },
+      longDistanceEnabled: 0,
+      rainMode: "NONE",
+      thirdPartyAddress: false,
+      thirdPartyVendor: "",
+      adTrackingID: "",
+      badges: {
+        imageBased: [],
+        textBased: [],
+        textExtendedBadges: [],
+      },
+      lastMileTravelString: "7.5 kms",
+      hasSurge: false,
+      sla: {
+        restaurantId: "664656",
+        deliveryTime: 38,
+        minDeliveryTime: 35,
+        maxDeliveryTime: 45,
+        lastMileTravel: 7.599999904632568,
+        lastMileDistance: 0,
+        serviceability: "SERVICEABLE_WITH_BANNER",
+        rainMode: "NONE",
+        longDistance: "NOT_LONG_DISTANCE",
+        preferentialService: false,
+        iconType: "EMPTY",
+      },
+      promoted: false,
+      avgRating: "3.9",
+      totalRatings: 0,
+      new: true,
+    },
+    subtype: "basic",
+  },
+];
 
-const AppLayout = () => (
-  <div className="app">
-    <Header />
-    <Body />
-  </div>
-);
+// Restaurant card component: Image, name, cuisine
+const RestaurantCard = ({
+  cloudinaryImageId,
+  name,
+  cuisines,
+  area,
+  lastMileTravelString,
+  costForTwoString,
+  avgRating,
+}) => {
+  return (
+    <div className="card">
+      <img src={IMG_CDN_URL + cloudinaryImageId} />
+      <h2>{name}</h2>
+      <h4>{cuisines.join(", ")}</h4>
+      <h4>{area}</h4>
+      <span>
+        <h4>
+          <i class="fa-solid fa-star"></i>
+          {avgRating}
+        </h4>
+        <h4>{lastMileTravelString}</h4>
+        <h4>{costForTwoString}</h4>
+      </span>
+    </div>
+  );
+};
+
+// Body Component for body section: It contain all restaurant cards
+// We are mapping restaurantList array and passing data to RestaurantCard component as props with unique key as index
+const Body = () => {
+  return (
+    <div className="restaurant-list">
+      {restaurantList.map((restaurant) => {
+        return <RestaurantCard key={restaurant.data.id} {...restaurant.data} />;
+      })}
+    </div>
+  );
+};
+
+// Footer component for footer section
+const Footer = () => {
+  const year = new Date().getFullYear();
+  return (
+    <div className="footer">
+      Created By
+      <i class="fa-solid fa-heart"></i>
+      <a href="https://www.linkedin.com/in/chetannada/" target="_blank">
+        Chetan Nada
+      </a>
+      <i class="fa-solid fa-copyright"></i>
+      {year}
+      <strong>
+        Food<span>Fire</span>
+      </strong>
+    </div>
+  );
+};
+
+// AppLayout component to show: Header, Body, Footer
+const AppLayout = () => {
+  return (
+    <React.Fragment>
+      <Header />
+      <Body />
+      <Footer />
+    </React.Fragment>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(AppLayout());
+root.render(<AppLayout />);
