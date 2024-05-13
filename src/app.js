@@ -2,7 +2,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom/client";
-import restaurantList from "./Utils/Data.js";
+
 
 import Header from "./components/Header.js";
 import Body from "./components/Body.js";
