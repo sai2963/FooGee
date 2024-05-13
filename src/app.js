@@ -3,7 +3,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import foodFireLogo from "../public/Images/foodFireLogo.png";
-import { IMG_CDN_URL } from "../public/Common/constants";
+import { IMG_CDN_URL } from "../public/Common/constants.js";
 
 /* My Food App structure will look like this, 
             1) Header
@@ -1879,9 +1879,11 @@ const RestaurantCard = ({
   avgRating,
 }) => {
   return (
+    
     <div className="card">
+      
       <img src={IMG_CDN_URL + cloudinaryImageId} />
-      {console.log(cloudinaryImageId)}
+      
       <h2>{name}</h2>
       <h4>{cuisines.join(", ")}</h4>
       <h4>{area}</h4>
