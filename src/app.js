@@ -1,9 +1,8 @@
-// ## Namaste React Course by Akshay Saini
-// Chapter 04 - Talk is Cheap, show me the code
+
 
 import React from "react";
 import ReactDOM from "react-dom/client";
-import foodFireLogo from "../../public/Images/foodFireLogo.png";
+import foodFireLogo from "../public/Images/foodFireLogo.png";
 import { IMG_CDN_URL } from "../public/Common/constants";
 
 /* My Food App structure will look like this, 
@@ -1882,6 +1881,7 @@ const RestaurantCard = ({
   return (
     <div className="card">
       <img src={IMG_CDN_URL + cloudinaryImageId} />
+      {console.log(cloudinaryImageId)}
       <h2>{name}</h2>
       <h4>{cuisines.join(", ")}</h4>
       <h4>{area}</h4>
@@ -1916,8 +1916,8 @@ const Footer = () => {
     <div className="footer">
       Created By
       <i class="fa-solid fa-heart"></i>
-      <a href="https://www.linkedin.com/in/chetannada/" target="_blank">
-        Chetan Nada
+      <a href="https://www.linkedin.com/in/duduka-venkat-sai-182a71267/" target="_blank">
+        DDK
       </a>
       <i class="fa-solid fa-copyright"></i>
       {year}
