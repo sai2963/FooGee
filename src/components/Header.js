@@ -9,7 +9,7 @@ const Header = () => {
             <li>About</li>
             <li>Contact</li>
             <li>
-              <i class="fa-solid fa-cart-shopping"></i>
+              <i className="fa-solid fa-cart-shopping"></i>
             </li>
           </ul>
         </div>

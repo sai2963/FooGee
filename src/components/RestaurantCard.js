@@ -21,7 +21,7 @@ const RestaurantCard = ({
         <h4>{area}</h4>
         <span>
           <h4>
-            <i class="fa-solid fa-star"></i>
+            <i className="fa-solid fa-star"></i>
             {avgRating}
           </h4>
           <h4>{lastMileTravelString}</h4>
