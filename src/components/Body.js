@@ -1,9 +1,10 @@
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
+import { FOODFIRE_API_URL } from "../../public/Common/constants";
 
 const Body = () => {
   // Initialize RestaurantList with an empty array
-  const [rRestaurantList, setRestaurantList] = useState([]);
+  const [rRestaurantList, setrRestaurantList] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -11,16 +12,15 @@ const Body = () => {
 
   const fetchData = async () => {
     try {
-      const data = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-      );
+      const data = await fetch(FOODFIRE_API_URL);
 
       const json = await data.json();
-      const restaurants = json.data.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants ;
+      const restaurants = json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+      ?.restaurants;
       
       console.log(restaurants);
 
-      setRestaurantList(restaurants);
+      setrRestaurantList(restaurants);
     } catch (error) {
       console.error("Error fetching data: ", error);
     }
@@ -35,14 +35,14 @@ const Body = () => {
             const filteredList = rRestaurantList.filter(
               (restaurant) => restaurant.info.avgRating >= 4
             );
-            setRestaurantList(filteredList);
+            setrRestaurantList(filteredList);
           }}
         >
           Top Rated Restaurants
         </button>
       </div>
       <div className="restaurant-list">
-        {rRestaurantList.length > 0 ? (
+      {rRestaurantList.length > 0 ? (
           rRestaurantList.map((restaurant) => (
             <RestaurantCard key={restaurant.info.id} {...restaurant.info} />
           ))
