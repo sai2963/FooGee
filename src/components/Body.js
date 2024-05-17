@@ -1,6 +1,4 @@
 import RestaurantCard from "./RestaurantCard";
-import restaurantList from "../Utils/Data";
-import { FOODFIRE_API_URL } from "../../public/Common/constants";
 import { useEffect, useState } from "react";
 
 const Body = () => {
@@ -12,16 +10,21 @@ const Body = () => {
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(
+    try {
+      const data = await fetch(
         "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
+      );
 
-    const json = await data.json();
-    console.log(json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants)
-    setRestaurantList(json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants);
-    // keeping copy of api data for filter / other purposes
-    
-};
+      const json = await data.json();
+      const restaurants = json.data.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants ;
+      
+      console.log(restaurants);
+
+      setRestaurantList(restaurants);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+  };
 
   return (
     <div>
@@ -44,7 +47,7 @@ const Body = () => {
             <RestaurantCard key={restaurant.info.id} {...restaurant.info} />
           ))
         ) : (
-          <p>No restaurants available</p>
+          <p>Loading.... Restaurants Please Wait</p>
         )}
       </div>
     </div>
