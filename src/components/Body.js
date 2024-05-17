@@ -8,6 +8,7 @@ const Body = () => {
 
   useEffect(() => {
     fetchData();
+    console.log(RestaurantList);
   }, []);
 
   const fetchData = async () => {
@@ -27,6 +28,7 @@ const Body = () => {
         json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants;
       console.log(newData);
       setRestaurantList(newData);
+      
       // Check if the received data is in the expected format
     } catch (error) {
       console.error("Error fetching data:", error);
