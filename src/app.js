@@ -19,11 +19,13 @@ import Footer from "./components/Footer.js";
 // AppLayout component to show: Header, Body, Footer
 const AppLayout = () => {
   return (
-    <React.Fragment>
-      <Header />
+    <>
+    <Header />
       <Body />
       <Footer />
-    </React.Fragment>
+    </>
+      
+    
   );
 };
 

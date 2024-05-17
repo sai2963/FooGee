@@ -1,6 +1,7 @@
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import { FOODFIRE_API_URL } from "../../public/Common/constants";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
   // Initialize RestaurantList with an empty array
@@ -47,7 +48,7 @@ const Body = () => {
             <RestaurantCard key={restaurant.info.id} {...restaurant.info} />
           ))
         ) : (
-          <p>Loading.... Restaurants Please Wait</p>
+        <Shimmer/>
         )}
       </div>
     </div>
