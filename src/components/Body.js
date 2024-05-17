@@ -2,13 +2,13 @@ import RestaurantCard from "./RestaurantCard";
 import restaurantList from "../Utils/Data";
 import { FOODFIRE_API_URL } from "../../public/Common/constants";
 import { useEffect, useState } from "react";
+
 const Body = () => {
   // Initialize RestaurantList with an empty array
-  const [RestaurantList, setRestaurantList] = useState(restaurantList);
+  const [RestaurantList, setRestaurantList] = useState([]);
 
   useEffect(() => {
     fetchData();
-    console.log(RestaurantList);
   }, []);
 
   const fetchData = async () => {
@@ -22,14 +22,13 @@ const Body = () => {
       }
 
       const json = await data.json();
-      console.log(json);
 
+      // Ensure the structure of json.data.cards[2].card.card.gridElements.infoWithStyle.info is as expected
       const newData =
-        json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants;
-      console.log(newData);
+        json.data.cards[2]?.card?.card?.gridElements?.infoWithStyle?.info || [];
+      console.log(newData)
       setRestaurantList(newData);
-      
-      // Check if the received data is in the expected format
+      console.log(RestaurantList); // Logging the new data for debugging
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -51,9 +50,13 @@ const Body = () => {
         </button>
       </div>
       <div className="restaurant-list">
-        {RestaurantList.map((restaurant) => (
-          <RestaurantCard key={restaurant.data.id} {...restaurant.data} />
-        ))}
+        {RestaurantList.length > 0 ? (
+          RestaurantList.map((restaurant) => (
+            <RestaurantCard key={restaurant.data.id} {...restaurant.data} />
+          ))
+        ) : (
+          <p>No restaurants available</p>
+        )}
       </div>
     </div>
   );
