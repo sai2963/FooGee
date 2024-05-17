@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const Body = () => {
   // Initialize RestaurantList with an empty array
-  const [RestaurantList, setRestaurantList] = useState([]);
+  const [rRestaurantList, setRestaurantList] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -14,7 +14,7 @@ const Body = () => {
   const fetchData = async () => {
     try {
       const data = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.37240&lng=78.43780&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
       );
 
       if (!data.ok) {
@@ -24,11 +24,12 @@ const Body = () => {
       const json = await data.json();
 
       // Ensure the structure of json.data.cards[2].card.card.gridElements.infoWithStyle.info is as expected
-      const newData =
-        json.data.cards[2]?.card?.card?.gridElements?.infoWithStyle?.info || [];
+      const newData=json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants;
       console.log(newData)
-      setRestaurantList(newData);
-      console.log(RestaurantList); // Logging the new data for debugging
+      await setRestaurantList(
+        json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants
+      );
+      console.log(rRestaurantList); // Logging the new data for debugging
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -50,9 +51,9 @@ const Body = () => {
         </button>
       </div>
       <div className="restaurant-list">
-        {RestaurantList.length > 0 ? (
-          RestaurantList.map((restaurant) => (
-            <RestaurantCard key={restaurant.data.id} {...restaurant.data} />
+        {rRestaurantList.length > 0 ? (
+          rRestaurantList.map((restaurant) => (
+            <RestaurantCard key={restaurant.info.id} {...restaurant.data} />
           ))
         ) : (
           <p>No restaurants available</p>
