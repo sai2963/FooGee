@@ -37,6 +37,7 @@ const Body = () => {
     <div className="body">
       <div className="filter">
         <input
+        className="premium-input"
           type="text"
           value={searchtext}
           onChange={(e) => {
@@ -47,7 +48,7 @@ const Body = () => {
           type="search"
           className="premium-button"
           onClick={() => {
-            const searchRes = rRestaurantList.filter((restaurant) =>
+            const searchRes = filteredres.filter((restaurant) =>
               restaurant.info.name.includes(searchtext)
             );
 
@@ -60,7 +61,7 @@ const Body = () => {
         <button
           className="premium-button"
           onClick={() => {
-            const filteredList = rRestaurantList.filter(
+            const filteredList = filteredres.filter(
               (restaurant) => restaurant.info.avgRating >= 4
             );
             setfilteredres(filteredList);

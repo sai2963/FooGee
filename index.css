@@ -162,8 +162,29 @@
     transform: scale(0.98);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   }
+  .filter{
+    margin-left: 100px;
+  }
+  .premium-input {
+    background-color: #fff;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    outline: none;
+    width: 100%;
+    max-width: 400px;
+    background-clip: padding-box;
+    margin: 10px 0;
+  }
   
-
+  .premium-input:focus {
+    border-color: #f39c12;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
 
 /* footer CSS */
 .footer{
@@ -193,6 +214,3 @@
     color: rgb(203, 54, 0)
 }
 
-.filter{
-  margin-left: 100px;
-}
