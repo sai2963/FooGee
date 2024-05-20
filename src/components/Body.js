@@ -6,7 +6,10 @@ import Shimmer from "./Shimmer";
 const Body = () => {
   // Initialize RestaurantList with an empty array
   const [rRestaurantList, setrRestaurantList] = useState([]);
-
+  const [searchtext, setsearchtext] = useState("");
+  const [allRestaurants, setAllRestaurants] = useState([]);
+  const [filteredres, setfilteredres] = useState("");
+  console.log("Re Renderd");
   useEffect(() => {
     fetchData();
   }, []);
@@ -17,41 +20,64 @@ const Body = () => {
 
       const json = await data.json();
       // optional chaining
-      const restaurants = json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-      ?.restaurants;
-      
-      console.log(restaurants);
+      const restaurants =
+        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants;
 
-      setrRestaurantList(restaurants);
+      console.log(restaurants);
+      //setrRestaurantList(restaurants)
+      setAllRestaurants(restaurants);
+      setfilteredres(restaurants);
     } catch (error) {
       console.error("Error fetching data: ", error);
     }
   };
 
   return (
-    <div>
+    <div className="body">
       <div className="filter">
+        <input
+          type="text"
+          value={searchtext}
+          onChange={(e) => {
+            setsearchtext(e.target.value);
+          }}
+        />
         <button
-          className="filter-btn ml-20 bg-transparent bg-amber-300"
+          type="search"
+          className="premium-button"
+          onClick={() => {
+            const searchRes = rRestaurantList.filter((restaurant) =>
+              restaurant.info.name.includes(searchtext)
+            );
+
+            setfilteredres(searchRes);
+          }}
+        >
+          Search
+        </button>
+
+        <button
+          className="premium-button"
           onClick={() => {
             const filteredList = rRestaurantList.filter(
               (restaurant) => restaurant.info.avgRating >= 4
             );
-            setrRestaurantList(filteredList);
+            setfilteredres(filteredList);
           }}
         >
           Top Rated Restaurants
         </button>
       </div>
+
       {/* conditional rendering */}
       <div className="restaurant-list">
-      
-      {rRestaurantList.length > 0 ? (
-          rRestaurantList.map((restaurant) => (
+        {allRestaurants.length > 0 ? (
+          filteredres.map((restaurant) => (
             <RestaurantCard key={restaurant.info.id} {...restaurant.info} />
           ))
         ) : (
-        <Shimmer/>
+          <Shimmer />
         )}
       </div>
     </div>

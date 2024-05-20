@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Title from "./Title";
 const Header = () => {
-  const varb="Login"
+  const varb = "Login";
   const [btnname, setbtnname] = useState(varb);
   return (
     <div className="header">
@@ -17,17 +17,12 @@ const Header = () => {
             <button
               className="login"
               onClick={() => {
-                if (btnname === varb) {
-                  setbtnname("Logout");
-                } else {
-                  setbtnname("Login");
-                }
-                
+                {btnname == varb ? setbtnname("Logout") : setbtnname("Login");}
               }}
             >
               {btnname}
             </button>
-          </li> 
+          </li>
 
           <li>
             <i className="fa-solid fa-cart-shopping"></i>
