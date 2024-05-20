@@ -25,7 +25,7 @@ const Body = () => {
           ?.restaurants;
 
       console.log(restaurants);
-      //setrRestaurantList(restaurants)
+      setrRestaurantList(restaurants)
       setAllRestaurants(restaurants);
       setfilteredres(restaurants);
     } catch (error) {
@@ -48,11 +48,11 @@ const Body = () => {
           type="search"
           className="premium-button"
           onClick={() => {
-            const searchRes = filteredres.filter((restaurant) =>
+            const searchRes = allRestaurants.filter((restaurant) =>
               restaurant.info.name.includes(searchtext)
             );
 
-            setfilteredres(searchRes);
+            setfilteredres(searchRes,allRestaurants);
           }}
         >
           Search
@@ -61,7 +61,7 @@ const Body = () => {
         <button
           className="premium-button"
           onClick={() => {
-            const filteredList = filteredres.filter(
+            const filteredList = allRestaurants.filter(
               (restaurant) => restaurant.info.avgRating >= 4
             );
             setfilteredres(filteredList);
