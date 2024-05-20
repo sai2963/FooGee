@@ -19,7 +19,7 @@ const Body = () => {
       const data = await fetch(FOODFIRE_API_URL);
 
       const json = await data.json();
-      // optional chaining
+       // optional chaining
       const restaurants =
         json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants;
