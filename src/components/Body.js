@@ -16,6 +16,7 @@ const Body = () => {
       const data = await fetch(FOODFIRE_API_URL);
 
       const json = await data.json();
+      // optional chaining
       const restaurants = json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
       ?.restaurants;
       
@@ -42,7 +43,9 @@ const Body = () => {
           Top Rated Restaurants
         </button>
       </div>
+      {/* conditional rendering */}
       <div className="restaurant-list">
+      
       {rRestaurantList.length > 0 ? (
           rRestaurantList.map((restaurant) => (
             <RestaurantCard key={restaurant.info.id} {...restaurant.info} />

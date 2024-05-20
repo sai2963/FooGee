@@ -1,5 +1,7 @@
- import Title from "./Title";
+ import { useState } from "react";
+import Title from "./Title";
 const Header = () => {
+  const [btnname,setbtnname]=useState("Login");
     return (
       <div className="header">
         <Title />
@@ -8,6 +10,12 @@ const Header = () => {
             <li>Home</li>
             <li>About</li>
             <li>Contact</li>
+            <li>Cart</li>
+            
+            <li><button className="login" onClick={()=>{
+              setbtnname("Logout")
+            }}>{btnname}</button></li>
+
             <li>
               <i className="fa-solid fa-cart-shopping"></i>
             </li>
