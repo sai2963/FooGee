@@ -1,28 +1,41 @@
- import { useState } from "react";
+import { useState } from "react";
 import Title from "./Title";
 const Header = () => {
-  const [btnname,setbtnname]=useState("Login");
-    return (
-      <div className="header">
-        <Title />
-        <div className="nav-items">
-          <ul>
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
-            <li>Cart</li>
-            
-            <li><button className="login" onClick={()=>{
-              setbtnname("Logout")
-            }}>{btnname}</button></li>
+  const varb="Login"
+  const [btnname, setbtnname] = useState(varb);
+  return (
+    <div className="header">
+      <Title />
+      <div className="nav-items">
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Contact</li>
+          <li>Cart</li>
 
-            <li>
-              <i className="fa-solid fa-cart-shopping"></i>
-            </li>
-          </ul>
-        </div>
+          <li>
+            <button
+              className="login"
+              onClick={() => {
+                if (btnname === varb) {
+                  setbtnname("Logout");
+                } else {
+                  setbtnname("Login");
+                }
+                
+              }}
+            >
+              {btnname}
+            </button>
+          </li> 
+
+          <li>
+            <i className="fa-solid fa-cart-shopping"></i>
+          </li>
+        </ul>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
-  export default Header;
+export default Header;
