@@ -19,13 +19,13 @@ const Body = () => {
       const data = await fetch(FOODFIRE_API_URL);
 
       const json = await data.json();
-       // optional chaining
+      // optional chaining
       const restaurants =
         json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants;
 
       console.log(restaurants);
-      setrRestaurantList(restaurants)
+      setrRestaurantList(restaurants);
       setAllRestaurants(restaurants);
       setfilteredres(restaurants);
     } catch (error) {
@@ -37,7 +37,7 @@ const Body = () => {
     <div className="body">
       <div className="filter">
         <input
-        className="premium-input"
+          className="premium-input"
           type="text"
           value={searchtext}
           onChange={(e) => {
@@ -52,7 +52,7 @@ const Body = () => {
               restaurant.info.name.includes(searchtext)
             );
 
-            setfilteredres(searchRes,allRestaurants);
+            setfilteredres(searchRes, allRestaurants);
           }}
         >
           Search
