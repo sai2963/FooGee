@@ -7,7 +7,7 @@ const Header = () => {
   const [btnname, setbtnname] = useState(varb);
   return (
     <div className="header">
-      <Title />
+      <Title/>
       <div className="nav-items">
         <ul>
           <li><Link to="/">Home</Link></li>
