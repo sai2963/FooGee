@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
+import { IMG_CDN_URL } from "../../public/Common/constants";
 
 const RestaurantMenu = () => {
-    const { resId } = useParams();
+    const { id } = useParams();
+    console.log(id);
     const [resInfo, setResInfo] = useState(null);
 
     useEffect(() => {
-        if (resId) {
+        if (id) {
             fetchData();
         }
-    }, [resId]);
+    }, [id]);
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://foodfire.onrender.com/api/menu?page-type=REGULAR_MENU&complete-menu=true&lat=21.1702401&lng=72.83106070000001&submitAction=ENTER&restaurantId=${resId}`); // Ensure resId has no extra spaces
+            const response = await fetch(`https://foodfire.onrender.com/api/menu?page-type=REGULAR_MENU&complete-menu=true&lat=21.1702401&lng=72.83106070000001&submitAction=ENTER&restaurantId=${id}`); // Ensure resId has no extra spaces
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -29,7 +31,9 @@ const RestaurantMenu = () => {
 
     // Check the correct path to restaurant information in the response JSON
     const restaurantInfo = resInfo?.cards?.find(card => card.card?.card?.info)?.card?.card?.info || {};
-    const { name, cuisines, costForTwo } = restaurantInfo;
+    console.log(restaurantInfo);
+    const { name, cuisines, costForTwo, cloudinaryImageId,area,city ,avgRating
+    } = restaurantInfo;
 
     const itemCards = resInfo?.cards?.find(card => card.groupedCard?.cardGroupMap?.REGULAR)?.groupedCard?.cardGroupMap?.REGULAR?.cards?.find(card => card.card?.card?.carousel)?.card?.card?.carousel || [];
 
@@ -37,9 +41,13 @@ const RestaurantMenu = () => {
         <Shimmer />
     ) : (
         <div>
+           <img src={IMG_CDN_URL + cloudinaryImageId} height="200px" width="200px"></img>
             <h1>{name || "Restaurant Name Not Available"}</h1>
             <h5>{cuisines ? cuisines.join(", ") : "No cuisines available"} - Cost for two: {costForTwo ? costForTwo / 100 : "N/A"}</h5>
-            
+           
+           <p>{area}</p>
+           <p>{city}</p>
+           <p>{avgRating}</p> 
             <b>Restaurant Menu</b>
             <ol>
                 {itemCards.length > 0 ? (
