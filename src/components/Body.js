@@ -76,7 +76,18 @@ const Body = () => {
       <div className="restaurant-list">
         {allRestaurants.length > 0 ? (
           filteredres.map((restaurant) => (
-            <RestaurantCard key={restaurant.info.id} {...restaurant.info} />
+            //<RestaurantCard key={restaurant.info.id} {...restaurant.info} />
+            // <link to={"/restaurant/"+restaurant.info.id} key={restaurant.info.id}>
+            //   <RestaurantCard {...restaurant.info}/>
+            // </link>
+
+            <Link
+              to={"/restaurant/" + restaurant.info.id}
+              key={restaurant.info.id}
+            >
+              <RestaurantCard {...restaurant.info} />
+            </Link>
+            
           ))
         ) : (
           <Shimmer />
