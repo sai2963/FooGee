@@ -2,6 +2,7 @@ import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import { FOODFIRE_API_URL } from "../../public/Common/constants";
 import Shimmer from "./Shimmer";
+import useOnlineStatus from "../Utils/useOnlineStaus";
 import { Link } from "react-router-dom";
 
 const Body = () => {
@@ -33,7 +34,13 @@ const Body = () => {
       console.error("Error fetching data: ", error);
     }
   };
-
+  const onlineStatus =useOnlineStatus();
+  
+    if(onlineStatus===false) 
+      return(
+        <h1>Looks Like your Offline</h1>
+      )
+  
   return (
     <div className="body">
       <div className="filter">

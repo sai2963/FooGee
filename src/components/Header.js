@@ -2,14 +2,17 @@ import { useState } from "react";
 import Title from "./Title";
 import { Link } from "react-router-dom";
 import About from "./about";
+import useOnlineStatus from "../Utils/useOnlineStaus";
 const Header = () => {
   const varb = "Login";
+  const onlineStatus =useOnlineStatus();
   const [btnname, setbtnname] = useState(varb);
   return (
     <div className="header">
       <Title/>
       <div className="nav-items">
         <ul>
+          <li>{onlineStatus===true? ("🟢") :("🔴") }</li>
           <li><Link to="/">Home</Link></li>
           <li> <Link to="/about">About</Link> </li>
           <li><Link to="/contact">Contact</Link></li>
