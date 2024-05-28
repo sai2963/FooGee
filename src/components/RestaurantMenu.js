@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import useRestaurant from "../Utils/useRestaurant";
 import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import { IMG_CDN_URL } from "../../public/Common/constants";
@@ -7,28 +7,28 @@ import { IMG_CDN_URL } from "../../public/Common/constants";
 const RestaurantMenu = () => {
     const { id } = useParams();
     console.log(id);
-    const [resInfo, setResInfo] = useState(null);
+    const resInfo = useRestaurant(id);
 
-    useEffect(() => {
-        if (id) {
-            fetchData();
-        }
-    }, [id]);
+    // useEffect(() => {
+    //     if (id) {
+    //         fetchData();
+    //     }
+    // }, [id]);
 
-    const fetchData = async () => {
-        try {
-            const response = await fetch(`https://foodfire.onrender.com/api/menu?page-type=REGULAR_MENU&complete-menu=true&lat=21.1702401&lng=72.83106070000001&submitAction=ENTER&restaurantId=${id}`); // Ensure resId has no extra spaces
+    // const fetchData = async () => {
+    //     try {
+    //         const response = await fetch(`https://foodfire.onrender.com/api/menu?page-type=REGULAR_MENU&complete-menu=true&lat=21.1702401&lng=72.83106070000001&submitAction=ENTER&restaurantId=${id}`); // Ensure resId has no extra spaces
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! status: ${response.status}`);
+    //         }
 
-            const json = await response.json();
-            setResInfo(json.data || null);
-        } catch (error) {
-            console.error("Error fetching data: ", error);
-        }
-    };
+    //         const json = await response.json();
+    //         setResInfo(json.data || null);
+    //     } catch (error) {
+    //         console.error("Error fetching data: ", error);
+    //     }
+    // };
 
     // Check the correct path to restaurant information in the response JSON
     const restaurantInfo = resInfo?.cards?.find(card => card.card?.card?.info)?.card?.card?.info || {};
