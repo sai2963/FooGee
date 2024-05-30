@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Title from "./Title";
 import { Link } from "react-router-dom";
-import About from "./about";
+//import About from "./about";
 import useOnlineStatus from "../Utils/useOnlineStaus";
 const Header = () => {
   const varb = "Login";
