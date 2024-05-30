@@ -1,7 +1,5 @@
 import React from 'react';
 import burgerImage from "../../public/Images/burgerImage.png";
-import './styles.css'; // Adjust the path as necessary
-
 const About = () => {
   return (
     <div className="about-container">
