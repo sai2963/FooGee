@@ -12,8 +12,8 @@ import Shimmer from "./components/Shimmer.js";
 //import Grocery from "./components/Grocery.js";
 
 
-const Grocery =lazy(()=>("./components/Grocery.js"))
-
+const Grocery =lazy(()=>import("./components/Grocery.js"))
+const About = lazy(()=>import("./components/about.js"))
 const Body =lazy(()=>import("./components/Body.js"));
 const Contact =lazy(()=>import("./components/Contact.js"));
 /* 
