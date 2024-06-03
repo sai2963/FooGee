@@ -8,7 +8,7 @@ const Header = () => {
   const onlineStatus =useOnlineStatus();
   const [btnname, setbtnname] = useState(varb);
   return (
-    <div className="header">
+    <div className="flex">
       <Title/>
       <div className="nav-items">
         <ul>
