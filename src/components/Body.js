@@ -88,7 +88,7 @@ const Body = () => {
             </Link>
           ))
         ) : (
-          <Shimmer />
+          <Shimmer/>
         )}
       </div>
     </div>
