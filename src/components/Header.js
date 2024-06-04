@@ -1,41 +1,64 @@
 import { useState } from "react";
-import Title from "./Title";
 import { Link } from "react-router-dom";
-//import About from "./about";
+import Title from "./Title";
 import useOnlineStatus from "../Utils/useOnlineStaus";
+
 const Header = () => {
-  const varb = "Login";
-  const onlineStatus =useOnlineStatus();
-  const [btnname, setbtnname] = useState(varb);
+  const initialBtnName = "Login";
+  const onlineStatus = useOnlineStatus();
+  const [btnName, setBtnName] = useState(initialBtnName);
+
   return (
-    <div className="flex">
-      <Title/>
-      <div className="nav-items">
-        <ul>
-          <li>{onlineStatus===true? ("🟢") :("🔴") }</li>
-          <li><Link to="/">Home</Link></li>
-          <li> <Link to="/about">About</Link> </li>
-          <li><Link to="/contact">Contact</Link></li>
-          <li><Link to="/grocery">Grocery</Link></li>
-          <li>Cart</li>
-
-          <li>
-            <button
-              className="login"
-              onClick={() => {
-                {btnname == varb ? setbtnname("Logout") : setbtnname("Login");}
-              }}
-            >
-              {btnname}
-            </button>
-          </li>
-
-          <li>
-            <i className="fa-solid fa-cart-shopping"></i>
-          </li>
-        </ul>
+    <header className="bg-white shadow-md">
+      <div className="container mx-auto flex items-center justify-between py-4 px-6">
+        <Title />
+        <nav className="flex items-center space-x-4">
+          <span
+            className={`text-xl ${
+              onlineStatus ? "text-green-500" : "text-red-500"
+            }`}
+          >
+            {onlineStatus ? "🟢" : "🔴"}
+          </span>
+          <ul className="flex items-center space-x-6">
+            <li>
+              <Link to="/" className="text-gray-700 hover:text-gray-900">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/about" className="text-gray-700 hover:text-gray-900">
+                About
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="text-gray-700 hover:text-gray-900">
+                Contact
+              </Link>
+            </li>
+            <li>
+              <Link to="/grocery" className="text-gray-700 hover:text-gray-900">
+                Grocery
+              </Link>
+            </li>
+            <li className="text-gray-700">Cart</li>
+            <li>
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                onClick={() =>
+                  setBtnName(btnName === initialBtnName ? "Logout" : "Login")
+                }
+              >
+                {btnName}
+              </button>
+            </li>
+            <li>
+              <i className="fa-solid fa-cart-shopping text-gray-700 text-xl"></i>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </div>
+    </header>
   );
 };
 

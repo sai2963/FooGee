@@ -10,8 +10,9 @@ const Body = () => {
   const [rRestaurantList, setrRestaurantList] = useState([]);
   const [searchtext, setsearchtext] = useState("");
   const [allRestaurants, setAllRestaurants] = useState([]);
-  const [filteredres, setfilteredres] = useState("");
-  console.log("Re Renderd");
+  const [filteredres, setfilteredres] = useState([]);
+  console.log("Re Rendered");
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -19,13 +20,12 @@ const Body = () => {
   const fetchData = async () => {
     try {
       const data = await fetch(FOODFIRE_API_URL);
-
       const json = await data.json();
-      // optional chaining
+      // Optional chaining
       const restaurants =
         json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants;
-
+      
       console.log(restaurants);
       setrRestaurantList(restaurants);
       setAllRestaurants(restaurants);
@@ -34,40 +34,36 @@ const Body = () => {
       console.error("Error fetching data: ", error);
     }
   };
-  const onlineStatus =useOnlineStatus();
+
+  const onlineStatus = useOnlineStatus();
   
-    if(onlineStatus===false) 
-      return(
-        <h1>Looks Like your Offline</h1>
-      )
+  if (onlineStatus === false) 
+    return <h1 className="text-center text-red-500">Looks like you're offline</h1>;
   
   return (
-    <div className="body">
-      <div className="filter">
+    <div className="container mx-auto py-6">
+      <div className="flex justify-center items-center space-x-4 mb-6">
         <input
-          className="premium-input"
+          className="border border-gray-300 rounded-lg px-4 py-2 w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           type="text"
           value={searchtext}
-          onChange={(e) => {
-            setsearchtext(e.target.value);
-          }}
+          placeholder="Search for restaurants"
+          onChange={(e) => setsearchtext(e.target.value)}
         />
         <button
           type="search"
-          className="premium-button"
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           onClick={() => {
             const searchRes = allRestaurants.filter((restaurant) =>
-              restaurant.info.name.includes(searchtext)
+              restaurant.info.name.toLowerCase().includes(searchtext.toLowerCase())
             );
-
-            setfilteredres(searchRes, allRestaurants);
+            setfilteredres(searchRes);
           }}
         >
           Search
         </button>
-
         <button
-          className="premium-button"
+          className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
           onClick={() => {
             const filteredList = allRestaurants.filter(
               (restaurant) => restaurant.info.avgRating >= 4
@@ -79,22 +75,17 @@ const Body = () => {
         </button>
       </div>
 
-      {/* conditional rendering */}
-      <div className="restaurant-list">
+      {/* Conditional rendering */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {allRestaurants.length > 0 ? (
           filteredres.map((restaurant) => (
-            //<RestaurantCard key={restaurant.info.id} {...restaurant.info} />
-            // <link to={"/restaurant/"+restaurant.info.id} key={restaurant.info.id}>
-            //   <RestaurantCard {...restaurant.info}/>
-            // </link>
-
             <Link
               to={"/restaurant/" + restaurant.info.id}
               key={restaurant.info.id}
+              className="block transform transition duration-300 hover:scale-105"
             >
               <RestaurantCard {...restaurant.info} />
             </Link>
-            
           ))
         ) : (
           <Shimmer />
