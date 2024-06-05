@@ -9,11 +9,10 @@ const RestaurantCard = ({
   costForTwoString,
   avgRating,
 }) => {
-  // Determine the color based on the rating
   const ratingColor = avgRating >= 4 ? "bg-green-500" : avgRating >= 3 ? "bg-yellow-500" : "bg-red-500";
 
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 w-full sm:w-64">
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 w-full sm:w-64 relative">
       <img src={IMG_CDN_URL + cloudinaryImageId} alt={name} className="w-full h-40 object-cover" />
       <div className="p-4">
         <h2 className="text-xl font-bold text-gray-800 truncate">{name}</h2>
@@ -28,6 +27,15 @@ const RestaurantCard = ({
           <span>{costForTwoString}</span>
         </div>
       </div>
+    </div>
+  );
+};
+
+export const withLabel = (RestaurantCard, label, labelStyle) => {
+  return (props) => (
+    <div className="relative">
+      <span className={labelStyle}>{label}</span>
+      <RestaurantCard {...props} />
     </div>
   );
 };

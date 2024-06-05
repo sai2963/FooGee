@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withLabel } from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import { FOODFIRE_API_URL } from "../../public/Common/constants";
 import Shimmer from "./Shimmer";
@@ -6,11 +6,22 @@ import useOnlineStatus from "../Utils/useOnlineStaus";
 import { Link } from "react-router-dom";
 
 const Body = () => {
-  // Initialize RestaurantList with an empty array
   const [rRestaurantList, setrRestaurantList] = useState([]);
   const [searchtext, setsearchtext] = useState("");
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredres, setfilteredres] = useState([]);
+
+  const RestaurantVeg = withLabel(
+    RestaurantCard,
+    "Veg",
+    "absolute top-0 left-0 bg-gradient-to-r from-green-400 to-green-600 text-white text-xs font-bold px-2 py-1 rounded-br-lg shadow-md z-10"
+  );
+  const RestaurantNonVeg = withLabel(
+    RestaurantCard,
+    "Non-Veg",
+    "absolute top-0 left-0 bg-gradient-to-r from-red-400 to-red-600 text-white text-xs font-bold px-2 py-1 rounded-br-lg shadow-md z-10"
+  );
+
   console.log("Re Rendered");
 
   useEffect(() => {
@@ -21,11 +32,8 @@ const Body = () => {
     try {
       const data = await fetch(FOODFIRE_API_URL);
       const json = await data.json();
-      // Optional chaining
-      const restaurants =
-        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-          ?.restaurants;
-      
+      const restaurants = json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+
       console.log(restaurants);
       setrRestaurantList(restaurants);
       setAllRestaurants(restaurants);
@@ -36,10 +44,12 @@ const Body = () => {
   };
 
   const onlineStatus = useOnlineStatus();
-  
-  if (onlineStatus === false) 
-    return <h1 className="text-center text-red-500">Looks like you're offline</h1>;
-  
+
+  if (onlineStatus === false)
+    return (
+      <h1 className="text-center text-red-500">Looks like you're offline</h1>
+    );
+
   return (
     <div className="container mx-auto py-6">
       <div className="flex justify-center items-center space-x-4 mb-6">
@@ -75,20 +85,23 @@ const Body = () => {
         </button>
       </div>
 
-      {/* Conditional rendering */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {allRestaurants.length > 0 ? (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+        {filteredres.length > 0 ? (
           filteredres.map((restaurant) => (
             <Link
               to={"/restaurant/" + restaurant.info.id}
               key={restaurant.info.id}
               className="block transform transition duration-300 hover:scale-105"
             >
-              <RestaurantCard {...restaurant.info} />
+              {restaurant.info.veg ? (
+                <RestaurantVeg {...restaurant.info} />
+              ) : (
+                <RestaurantNonVeg {...restaurant.info} />
+              )}
             </Link>
           ))
         ) : (
-          <Shimmer/>
+          <Shimmer />
         )}
       </div>
     </div>
