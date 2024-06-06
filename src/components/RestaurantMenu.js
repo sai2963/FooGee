@@ -6,32 +6,32 @@ import { IMG_CDN_URL } from "../../public/Common/constants";
 const RestaurantMenu = () => {
     const { id } = useParams();
     const resInfo = useRestaurant(id);
-
+    console.log(resInfo);
     // Logging the full response to inspect the structure
-    console.log('Full Response:', resInfo);
+    //console.log('Full Response:', resInfo);
 
     // Extracting restaurant info
     const restaurantInfo = resInfo?.cards?.find(card => card.card?.card?.info)?.card?.card?.info || {};
     const { name, cuisines, costForTwo, cloudinaryImageId, area, city, avgRating } = restaurantInfo;
 
     // Logging the extracted restaurant info
-    console.log('Restaurant Info:', restaurantInfo);
+    //console.log('Restaurant Info:', restaurantInfo);
 
     // Extracting and logging the regular card group
     const regularCardGroup = resInfo?.cards?.find(card => card.groupedCard?.cardGroupMap?.REGULAR);
-    console.log('Regular Card Group:', regularCardGroup);
+    //console.log('Regular Card Group:', regularCardGroup);
 
     // Extracting and logging the cards within the regular card group
     const regularCards = regularCardGroup?.groupedCard?.cardGroupMap?.REGULAR?.cards;
-    console.log('Regular Cards:', regularCards);
+    //console.log('Regular Cards:', regularCards);
 
     // Filtering the cards to find item categories
     const itemCategoryCards = regularCards?.filter(card => card.card?.card?.['@type'] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
-    console.log('Item Category Cards:', itemCategoryCards);
+    //console.log('Item Category Cards:', itemCategoryCards);
 
     // Extracting item cards from the filtered item category cards
     const itemCards = itemCategoryCards?.flatMap(categoryCard => categoryCard.card?.card?.itemCards) || [];
-    console.log('Item Cards:', itemCards);
+    //console.log('Item Cards:', itemCards);
 
     return resInfo == null ? (
         <Shimmer />
