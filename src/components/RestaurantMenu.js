@@ -20,24 +20,10 @@ const RestaurantMenu = () => {
     const regularCards = regularCardGroup?.groupedCard?.cardGroupMap?.REGULAR?.cards;
 
     // Filtering the cards to find item categories
-    const itemCategoryCards1 = regularCards?.filter(card => card.card?.card?.['@type'] === "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory") || [];
+    const itemCategoryCards = regularCards?.filter(card => card.card?.card?.['@type'] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory") || [];
+    console.log(itemCategoryCards);
 
-    // Get only the third card from the filtered cards, with additional checks
-    const categoryCards0 = itemCategoryCards1.length > 0 ? itemCategoryCards1[0]?.card?.card?.categories[0]?.itemCards || [] : [];
-    const categoryCards1 = itemCategoryCards1.length > 1 ? itemCategoryCards1[1]?.card?.card?.categories[0]?.itemCards || [] : [];
-    const categoryCards2 = itemCategoryCards1.length > 2 ? itemCategoryCards1[2]?.card?.card?.categories[0]?.itemCards || [] : [];
-
-    console.log(categoryCards0);
-
-    // Extracting item cards from the filtered item category cards
-    const itemCards0 = categoryCards0;
-    const itemCards1 = categoryCards1;
-    const itemCards2 = categoryCards2;
-
-    const toggleAccordion = (index) => {
-        setOpenAccordion(openAccordion === index ? null : index);
-    };
-
+    // Helper function to render items
     const renderItems = (items) => {
         return items.map((item, index) => (
             <div key={index} className="p-4 border border-gray-300 rounded-lg shadow-lg bg-gray-100 hover:bg-white transition duration-300">
@@ -55,6 +41,10 @@ const RestaurantMenu = () => {
         ));
     };
 
+    const toggleAccordion = (index) => {
+        setOpenAccordion(openAccordion === index ? null : index);
+    };
+
     return resInfo == null ? (
         <Shimmer />
     ) : (
@@ -64,46 +54,27 @@ const RestaurantMenu = () => {
                 <div className="ml-6">
                     <h1 className="text-4xl font-semibold">{name || "Restaurant Name Not Available"}</h1>
                     <h5 className="text-lg mt-2">{cuisines ? cuisines.join(", ") : "No cuisines available"} - Cost for two: {costForTwo ? `Rs ${costForTwo / 100}` : "N/A"}</h5>
-                    <p className="text-lg mt-1">{area}, {city}</p>
+                    <p className="text-lg mt-1">{area} {city}</p>
                     <p className="text-lg mt-1">{avgRating ? `Rating: ${avgRating}` : "No rating available"}</p>
                 </div>
             </div>
             <div className="restaurant-menu-section p-6">
-                {/* Recommended */}
-                <div className="accordion-item mb-4">
-                    <div className="accordion-header cursor-pointer p-4 bg-gray-200 hover:bg-gray-300 transition duration-300 rounded-t-lg" onClick={() => toggleAccordion(0)}>
-                        <b className="text-2xl">Recommended</b>
-                    </div>
-                    {openAccordion === 0 && (
-                        <ul className="accordion-content mt-4 space-y-4">
-                            {itemCards0.length > 0 ? renderItems(itemCards0) : <li className="text-lg text-gray-800">No menu items available</li>}
-                        </ul>
-                    )}
-                </div>
-
-                {/* Top One's */}
-                <div className="accordion-item mb-4">
-                    <div className="accordion-header cursor-pointer p-4 bg-gray-200 hover:bg-gray-300 transition duration-300 rounded-t-lg" onClick={() => toggleAccordion(1)}>
-                        <b className="text-2xl">Top One's</b>
-                    </div>
-                    {openAccordion === 1 && (
-                        <ul className="accordion-content mt-4 space-y-4">
-                            {itemCards1.length > 0 ? renderItems(itemCards1) : <li className="text-lg text-gray-800">No menu items available</li>}
-                        </ul>
-                    )}
-                </div>
-
-                {/* Your Choice */}
-                <div className="accordion-item mb-4">
-                    <div className="accordion-header cursor-pointer p-4 bg-gray-200 hover:bg-gray-300 transition duration-300 rounded-t-lg" onClick={() => toggleAccordion(2)}>
-                        <b className="text-2xl">Your Choice</b>
-                    </div>
-                    {openAccordion === 2 && (
-                        <ul className="accordion-content mt-4 space-y-4">
-                            {itemCards2.length > 0 ? renderItems(itemCards2) : <li className="text-lg text-gray-800">No menu items available</li>}
-                        </ul>
-                    )}
-                </div>
+                {itemCategoryCards.map((categoryCard, index) => {
+                    const items = categoryCard.card?.card?.itemCards || [];
+                    const categoryName = categoryCard.card?.card?.title || `Category ${index + 1}`;
+                    return (
+                        <div key={index} className="accordion-item mb-4">
+                            <div className="accordion-header cursor-pointer p-4 bg-gray-200 hover:bg-gray-300 transition duration-300 rounded-t-lg" onClick={() => toggleAccordion(index)}>
+                                <b className="text-2xl">{categoryName}</b>
+                            </div>
+                            {openAccordion === index && (
+                                <ul className="accordion-content mt-4 space-y-4">
+                                    {items.length > 0 ? renderItems(items) : <li className="text-lg text-gray-800">No menu items available</li>}
+                                </ul>
+                            )}
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
