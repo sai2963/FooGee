@@ -32,7 +32,7 @@ const RestaurantMenu = () => {
                         <img src={IMG_CDN_URL + item.card?.info?.imageId} alt={item.card?.info?.name} className="h-20 w-20 rounded-full border-2 border-gray-300 shadow-md mr-4" />
                         <div>
                             <h3 className="text-2xl font-semibold text-gray-800">{item.card?.info?.name || "No Name"}</h3>
-                            <p className="text-lg text-gray-600">Rs: {item.card?.info?.price ? item.card.info.price / 10 : "Free"}</p>
+                            <p className="text-lg text-gray-600">Rs: {item.card?.info?.price ? item.card.info.price / 100 : "Free"}</p>
                         </div>
                     </div>
                     <button className="bg-blue-500 text-white px-4 py-2 rounded-full shadow-md hover:bg-blue-600 transition duration-300">Add to Cart</button>
