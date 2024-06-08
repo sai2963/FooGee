@@ -17,9 +17,9 @@ const Renderitems = ({ items }) => {
             <h3 className="text-2xl font-semibold text-gray-800">
               {item.card?.info?.name || "No Name"}
             </h3>
-            {console.log(item.card?.info?.name || "No Name")}
+            {/* {console.log(item.card?.info?.name || "No Name")} */}
             <p className="text-lg text-gray-600">
-              Rs: {item.card?.info?.price ? item.card.info.price / 100 : "Free"}
+              Rs: {item.card?.info?.price ? item.card.info.price / 100 : item.card.info.defaultPrice / 100}
             </p>
             <p className="text-sm text-gray-500 italic leading-snug mt-2 bg-gray-200 p-2 rounded-md shadow-inner">
               {item.card?.info?.description || " "}

@@ -4,6 +4,7 @@ import Shimmer from "./Shimmer";
 import { IMG_CDN_URL } from "../../public/Common/constants";
 import { useState } from "react";
 import Accordion from "./Accordion";
+import { MenuShimmer } from "./Shimmer";
 
 const RestaurantMenu = () => {
   const { id } = useParams();
@@ -50,7 +51,7 @@ const RestaurantMenu = () => {
   };
 
   return resInfo == null ? (
-    <Shimmer />
+    <MenuShimmer />
   ) : (
     <div className="restaurant-menu-container bg-white rounded-lg shadow-md overflow-hidden max-w-4xl mx-auto mt-8">
       <div className="restaurant-menu-header flex items-center justify-start p-6 bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-t-lg">
@@ -73,6 +74,7 @@ const RestaurantMenu = () => {
           <p className="text-lg mt-1">
             {avgRating ? `Rating: ${avgRating}` : "No rating available"}
           </p>
+          
         </div>
       </div>
       <div className="restaurant-menu-section p-6">

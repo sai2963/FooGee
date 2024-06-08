@@ -3,7 +3,7 @@ const Accordion = ({ index, items, categoryName, openAccordion, toggleAccordion,
     return (
         <div className="accordion-item mb-4">
             <div className="accordion-header cursor-pointer p-4 bg-gray-200 hover:bg-gray-300 transition duration-300 rounded-t-lg" onClick={() => toggleAccordion(index)}>
-                <b className="text-2xl">{categoryName}</b>
+                <b className="text-2xl">{categoryName} ({(items.length)})</b>
             </div>
             {openAccordion === index && (
                 <ul className="accordion-content mt-4 space-y-4">
