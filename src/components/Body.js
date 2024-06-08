@@ -10,7 +10,7 @@ const Body = () => {
   const [searchtext, setsearchtext] = useState("");
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredres, setfilteredres] = useState([]);
-
+  
   const RestaurantVeg = withLabel(
     RestaurantCard,
     "Veg",

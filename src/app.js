@@ -1,73 +1,59 @@
-import React, { lazy,Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import Header from "./components/Header.js";
-//import Body from "./components/Body.js";
-import Footer from "./components/Footer.js";
-//import About from "./components/About.js";
-import ErrorD from "./components/ErrorD.js";
-//import Contact from "./components/contact.js";
-import RestaurantMenu from "./components/RestaurantMenu.js";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import Header from "./components/Header.js";
+import Footer from "./components/Footer.js";
+import ErrorD from "./components/ErrorD.js";
+import RestaurantMenu from "./components/RestaurantMenu.js";
 import Shimmer from "./components/Shimmer.js";
-//import Grocery from "./components/Grocery.js";
 
+// Lazy loading components
+const Grocery = lazy(() => import("./components/Grocery.js"));
+const About = lazy(() => import("./components/About.js"));
+const Body = lazy(() => import("./components/Body.js"));
+const Contact = lazy(() => import("./components/Contact.js"));
 
-const Grocery =lazy(()=>import("./components/Grocery.js"))
-const About = lazy(()=>import("./components/About.js"))
-const Body =lazy(()=>import("./components/Body.js"));
-const Contact =lazy(()=>import("./components/Contact.js"));
-/* 
-       
-*/
-
-// Title component for display logo
-
-// RestaurantList is JSON Data for displaying cards
-
-// Restaurant card component: Image, name, cuisine
-
-// AppLayout component to show: Header, Body, Footer
 const AppLayout = () => {
   return (
-    <>
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition duration-500">
       <Header />
-      <Outlet/>
-      {/* <Footer /> */}
-    </>
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
   );
 };
- 
-const appRouter=createBrowserRouter([
+
+const appRouter = createBrowserRouter([
   {
-    path:'/',
-    element:<AppLayout/>,
-    children:[
+    path: '/',
+    element: <AppLayout />,
+    children: [
       {
-        path:'/',
-        element:<Suspense fallback={<Shimmer/>}><Body/></Suspense>
+        path: '/',
+        element: <Suspense fallback={<Shimmer />}><Body /></Suspense>
       },
       {
-        path:'/about',
-        element:<Suspense fallback={<Shimmer/>}><About/></Suspense>
+        path: '/about',
+        element: <Suspense fallback={<Shimmer />}><About /></Suspense>
       },
       {
-        path:'/contact',
-        element:<Suspense fallback={<Shimmer/>}><Contact/></Suspense>
+        path: '/contact',
+        element: <Suspense fallback={<Shimmer />}><Contact /></Suspense>
       },
       {
-        path:'/grocery',
-        element:<Suspense fallback={<Shimmer/>}><Grocery/></Suspense>
+        path: '/grocery',
+        element: <Suspense fallback={<Shimmer />}><Grocery /></Suspense>
       },
       {
-        path:'/restaurant/:id',
-        element:<RestaurantMenu/>
+        path: '/restaurant/:id',
+        element: <RestaurantMenu />
       }
     ],
-    errorElement:<ErrorD/>
+    errorElement: <ErrorD />
   },
-  
-
-])
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<RouterProvider router={appRouter} />);
