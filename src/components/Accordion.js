@@ -1,3 +1,4 @@
+
 import Renderitems from "./Renderitems";
 const Accordion = ({ index, items, categoryName, openAccordion, toggleAccordion, renderItems }) => {
     return (
@@ -7,7 +8,7 @@ const Accordion = ({ index, items, categoryName, openAccordion, toggleAccordion,
             </div>
             {openAccordion === index && (
                 <ul className="accordion-content mt-4 space-y-4">
-                    {items.length > 0 ? <Renderitems items={items} key={index} index={index}/> : <li className="text-lg text-gray-800">No menu items available</li>}
+                    {items.length > 0 ? items.map((items, index) => { return(<Renderitems items={items} key={items.card?.info?.name} index={index}/> )}): <li className="text-lg text-gray-800">No menu items available</li>}
                 </ul>
             )}
         </div>

@@ -84,7 +84,7 @@ const RestaurantMenu = () => {
             categoryCard.card?.card?.title || `Category ${index + 1}`;
           return (
             <Accordion
-              key={index}
+              key={categoryName}
               index={index}
               items={items}
               categoryName={categoryName}
