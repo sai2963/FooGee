@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState ,useContext} from "react";
 import { Link } from "react-router-dom";
 import Title from "./Title";
 import useOnlineStatus from "../Utils/useOnlineStaus";
+import UserContext from "../Utils/UserContext";
 
 const Header = () => {
   const [btnName, setBtnName] = useState("Login");
   const onlineStatus = useOnlineStatus();
-
-
+  
+  const {loggedInUser}=useContext(UserContext)
+  
 
   return (
     <header className="bg-white dark:bg-gray-800 shadow-md transition duration-500">
@@ -47,6 +49,7 @@ const Header = () => {
                 {btnName}
               </button>
             </li>
+            <li className="font-bold">{loggedInUser}</li>
             
             <li>
               <i className="fa-solid fa-cart-shopping text-gray-700 dark:text-gray-300 text-xl"></i>
