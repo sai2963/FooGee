@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Header from "./components/Header.js";
@@ -6,6 +6,7 @@ import Footer from "./components/Footer.js";
 import ErrorD from "./components/ErrorD.js";
 import RestaurantMenu from "./components/RestaurantMenu.js";
 import Shimmer from "./components/Shimmer.js";
+import UserContext from "./Utils/UserContext.js";
 
 // Lazy loading components
 const Grocery = lazy(() => import("./components/Grocery.js"));
@@ -14,44 +15,69 @@ const Body = lazy(() => import("./components/Body.js"));
 const Contact = lazy(() => import("./components/Contact.js"));
 
 const AppLayout = () => {
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    const data = { name: "DDK" };
+    setUserName(data.name);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition duration-500">
-      <Header />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
+      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+        <Header />
+        <main>
+          <Outlet />
+        </main>
+        <Footer />
+      </UserContext.Provider>
     </div>
   );
 };
 
 const appRouter = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <AppLayout />,
     children: [
       {
-        path: '/',
-        element: <Suspense fallback={<Shimmer />}><Body /></Suspense>
+        path: "/",
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <Body />
+          </Suspense>
+        ),
       },
       {
-        path: '/about',
-        element: <Suspense fallback={<Shimmer />}><About /></Suspense>
+        path: "/about",
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <About />
+          </Suspense>
+        ),
       },
       {
-        path: '/contact',
-        element: <Suspense fallback={<Shimmer />}><Contact /></Suspense>
+        path: "/contact",
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <Contact />
+          </Suspense>
+        ),
       },
       {
-        path: '/grocery',
-        element: <Suspense fallback={<Shimmer />}><Grocery /></Suspense>
+        path: "/grocery",
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <Grocery />
+          </Suspense>
+        ),
       },
       {
-        path: '/restaurant/:id',
-        element: <RestaurantMenu />
-      }
+        path: "/restaurant/:id",
+        element: <RestaurantMenu />,
+      },
     ],
-    errorElement: <ErrorD />
+    errorElement: <ErrorD />,
   },
 ]);
 

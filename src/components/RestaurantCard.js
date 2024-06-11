@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { IMG_CDN_URL } from "../../public/Common/constants.js";
+import UserContext from "../Utils/UserContext.js";
 
 const RestaurantCard = ({
   cloudinaryImageId,
@@ -10,6 +12,7 @@ const RestaurantCard = ({
   avgRating,
 }) => {
   const ratingColor = avgRating >= 4 ? "bg-green-500" : avgRating >= 3 ? "bg-yellow-500" : "bg-red-500";
+  const {loggedInUser} =useContext(UserContext)
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 w-full sm:w-64 relative">
@@ -25,6 +28,7 @@ const RestaurantCard = ({
           </span>
           <span>{lastMileTravelString}</span>
           <span>{costForTwoString}</span>
+          <soan>{loggedInUser}</soan>
         </div>
       </div>
     </div>

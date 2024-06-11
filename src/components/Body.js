@@ -1,9 +1,10 @@
 import RestaurantCard, { withLabel } from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FOODFIRE_API_URL } from "../../public/Common/constants";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../Utils/useOnlineStaus";
 import { Link } from "react-router-dom";
+import UserContext from "../Utils/UserContext";
 
 const Body = () => {
   const [rRestaurantList, setrRestaurantList] = useState([]);
@@ -21,7 +22,8 @@ const Body = () => {
     "Non-Veg",
     "absolute top-0 left-0 bg-gradient-to-r from-red-400 to-red-600 text-white text-xs font-bold px-2 py-1 rounded-br-lg shadow-md z-10"
   );
-
+  
+  const { setUserName, loggedInUser } = useContext(UserContext);
   console.log("Re Rendered");
 
   useEffect(() => {
@@ -84,7 +86,15 @@ const Body = () => {
           Top Rated Restaurants
         </button>
       </div>
-
+      <div>
+        <input
+          className="border border-gray-300 rounded-lg px-4 py-2 w-1/4  focus:outline-none focus:ring-2 focus:ring-blue-500"
+          type="text"
+          value={loggedInUser}
+          placeholder="Enter Your Name"
+          onChange={(e) => setUserName(e.target.value)}
+        />
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
         {filteredres.length > 0 ? (
           filteredres.map((restaurant) => (
