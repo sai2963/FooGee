@@ -56,7 +56,7 @@ const Body = () => {
     <div className="container mx-auto py-6">
       <div className="flex justify-center items-center space-x-4 mb-6">
         <input
-          className="border border-gray-300 rounded-lg px-4 py-2 w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 rounded-lg px-4 py-2 w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500"
           type="text"
           value={searchtext}
           placeholder="Search for restaurants"
@@ -85,10 +85,8 @@ const Body = () => {
         >
           Top Rated Restaurants
         </button>
-      </div>
-      <div>
         <input
-          className="border border-gray-300 rounded-lg px-4 py-2 w-1/4  focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 rounded-lg px-4 py-2 w-1/4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           type="text"
           value={loggedInUser}
           placeholder="Enter Your Name"
