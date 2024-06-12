@@ -15,7 +15,7 @@ const Footer = () => {
           </a>
           <span className="hidden lg:inline">|</span>
           <strong className="block lg:inline mt-2 lg:mt-0">
-            Foo<span className="text-blue-400">gee</span>
+            Foo<span className="text-blue-400">Gee</span>
           </strong>
         </div>
         <div className="text-center lg:text-right">

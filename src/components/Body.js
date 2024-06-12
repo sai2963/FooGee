@@ -52,6 +52,20 @@ const Body = () => {
       <h1 className="text-center text-red-500">Looks like you're offline</h1>
     );
 
+  const handleSearch = () => {
+    const searchRes = allRestaurants.filter((restaurant) =>
+      restaurant.info.name.toLowerCase().includes(searchtext.toLowerCase())
+    );
+    setfilteredres(searchRes);
+  };
+
+  const handleTopRated = () => {
+    const filteredList = allRestaurants.filter(
+      (restaurant) => restaurant.info.avgRating >= 4
+    );
+    setfilteredres(filteredList);
+  };
+
   return (
     <div className="container mx-auto py-6">
       <div className="flex justify-center items-center space-x-4 mb-6">
@@ -65,26 +79,17 @@ const Body = () => {
         <button
           type="search"
           className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          onClick={() => {
-            const searchRes = allRestaurants.filter((restaurant) =>
-              restaurant.info.name.toLowerCase().includes(searchtext.toLowerCase())
-            );
-            setfilteredres(searchRes);
-          }}
+          onClick={handleSearch}
         >
           Search
         </button>
         <button
           className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
-          onClick={() => {
-            const filteredList = allRestaurants.filter(
-              (restaurant) => restaurant.info.avgRating >= 4
-            );
-            setfilteredres(filteredList);
-          }}
+          onClick={handleTopRated}
         >
           Top Rated Restaurants
         </button>
+        <label>User Name:</label>
         <input
           className="border border-gray-300 rounded-lg px-4 py-2 w-1/4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           type="text"
@@ -94,7 +99,7 @@ const Body = () => {
         />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-        {filteredres.length > 0 ? (
+        {filteredres && filteredres.length > 0 ? (
           filteredres.map((restaurant) => (
             <Link
               to={"/restaurant/" + restaurant.info.id}

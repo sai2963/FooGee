@@ -1,7 +1,13 @@
 
+import { useDispatch } from "react-redux";
 import { IMG_CDN_URL } from "../../public/Common/constants";
+import { addItem } from "../Utils/CartSlice";
 
 const Renderitems = ({ items }) => {
+  const dispatch =useDispatch();
+  const HandAddItem=(items)=>{
+    dispatch(addItem(items));
+  }
   return (
     <div
       
@@ -25,7 +31,9 @@ const Renderitems = ({ items }) => {
             
           </div>
         </div>
-        <button className="bg-blue-500 text-white px-3 py-2 rounded-full shadow-md hover:bg-blue-600 transition duration-300 text-sm">
+        <button className="bg-blue-500 text-white px-3 py-2 rounded-full shadow-md hover:bg-blue-600 transition duration-300 text-sm"
+         onClick={()=>HandAddItem(items)}
+         >
           Add to Cart
         </button>
       </div>
