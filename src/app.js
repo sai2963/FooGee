@@ -9,14 +9,14 @@ import Shimmer from "./components/Shimmer.js";
 import UserContext from "./Utils/UserContext.js";
 import { Provider } from "react-redux";
 import AppStore from "./Utils/AppStore.js";
-
+import Cart from "./components/Cart.js"
 
 // Lazy loading components
 const Grocery = lazy(() => import("./components/Grocery.js"));
 const About = lazy(() => import("./components/About.js"));
 const Body = lazy(() => import("./components/Body.js"));
 const Contact = lazy(() => import("./components/Contact.js"));
-const Cart =lazy(()=>{import("./components/Cart.js")})
+
 
 const AppLayout = () => {
   const [userName, setUserName] = useState("");
@@ -80,14 +80,14 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/restaurant/:id",
-        element: (<Suspense fallback={<Shimmer />}>
-        <Body />
-      </Suspense>
-        ),
+        element: <RestaurantMenu/>
+        
       },
       {
         path: "/cart",
-        element: <Cart />,
+        element:<Cart/>,
+          
+      
       },
     ],
     errorElement: <ErrorD />,
