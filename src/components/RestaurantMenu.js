@@ -53,7 +53,8 @@ const RestaurantMenu = () => {
   return resInfo == null ? (
     <MenuShimmer />
   ) : (
-    <div className="restaurant-menu-container bg-white rounded-lg shadow-md overflow-hidden max-w-4xl mx-auto mt-8">
+    // <div className="bg-gray-100 min-h-screen py-12"></div>
+    <div className="restaurant-menu-container bg-white rounded-lg shadow-md overflow-hidden max-w-4xl mx-auto mt-8 min-h-screen ">
       <div className="restaurant-menu-header flex items-center justify-start p-6 bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-t-lg">
         <img
           src={IMG_CDN_URL + cloudinaryImageId}

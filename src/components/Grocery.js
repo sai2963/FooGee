@@ -1,8 +1,7 @@
 const Grocery =()=>{
     return(
-    <>
-    <h1>Here we Had Lot of Groceries Listed</h1>
-    </>
+        <div className="bg-gray-100 min-h-screen py-12">
+            </div>
     )
 }
 export default Grocery;

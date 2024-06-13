@@ -53,7 +53,7 @@ const Body = () => {
     );
 
   return (
-    <div className="container mx-auto py-6">
+    <div className="container mx-auto py-6 min-h-screen">
       <div className="flex justify-center items-center space-x-4 mb-6">
         <input
           className="border border-gray-300 rounded-lg px-4 py-2 w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500"
