@@ -9,7 +9,7 @@ export const FOODFIRE_API_URL = `${process.env.REACT_FOODFIRE_APP_BASE_URL}resta
 
 // Swiggy API to get Restaurant Menu data using foodfire server
 export const FOODFIRE_MENU_API_URL = `${process.env.REACT_FOODFIRE_APP_BASE_URL}menu?page-type=REGULAR_MENU&complete-menu=true&lat=21.1702401&lng=72.83106070000001&&submitAction=ENTER&restaurantId=`;
-
+export const FoodFire_Menu_AP_URL="https://foodfire.onrender.com/api/menu?page-type=REGULAR_MENU&complete-menu=true&lat=21.1702401&lng=72.83106070000001&submitAction=ENTER&restaurantId"
 // shimmer card unit
 export const shimmer_card_unit = 20;
 
