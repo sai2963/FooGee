@@ -11,8 +11,8 @@ const Cart = () => {
     dispatch(clearCart());
   };
 
-  const handleRemoveItem = (itemId) => {
-    dispatch(removeItem(itemId));
+  const handleRemoveItem = (index) => {
+    dispatch(removeItem(index));
   };
 
   const totalAmount = cartItems.reduce((total, item) => {
@@ -51,7 +51,7 @@ const Cart = () => {
                 </div>
                 <button
                   className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md shadow-md transition duration-300"
-                  onClick={() => handleRemoveItem(item.id)}
+                  onClick={() => handleRemoveItem(index)}
                 >
                   Remove
                 </button>
@@ -78,7 +78,7 @@ const Cart = () => {
             </div>
           </div>
         )}
-        
+
         <div className="mt-8">
           <button
             className="block mx-auto px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:from-purple-600 hover:to-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-transform transform hover:scale-105"
