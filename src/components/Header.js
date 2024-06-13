@@ -12,6 +12,8 @@ const Header = () => {
   const {loggedInUser}=useContext(UserContext)
   
   const CartItems=useSelector((store)=> store.cart.items);
+  
+
   //  console.log(CartItems);
   return (
     <header className="bg-white dark:bg-gray-800 shadow-md transition duration-500">
@@ -44,7 +46,7 @@ const Header = () => {
             </li>
             <li>
               <Link to="/cart" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100">
-              Cart({CartItems.length})items
+              Cart - {CartItems.length} items
               </Link>
             </li>
             

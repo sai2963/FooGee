@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Renderitems from "./Renderitems";
 import { clearCart, removeItem } from "../Utils/CartSlice";
 import { IMG_CDN_URL } from "../../public/Common/constants";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart.items);
@@ -31,7 +32,7 @@ const Cart = () => {
         </button>
       </div>
       {cartItems.length === 0 ? (
-        <p className="text-center text-gray-600">Your cart is empty.</p>
+        <p className="text-center text-gray-600">Your cart is empty. Go <Link to="/">Home</Link> Add Item to the cart</p>
       ) : (
         cartItems.map((item, index) => (
           <div key={index} items={item}>
