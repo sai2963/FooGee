@@ -40,7 +40,7 @@ const Cart = () => {
                 <div key={index} className="flex items-center justify-between border-b border-gray-200 py-4">
                   {item.length > 0 && (
                     <div>
-                      <h1>Restaurant-Items</h1>
+                      <h1>Restaurant-Items </h1>
                     <div className="flex items-center space-x-4">
                       <img
                         src={IMG_CDN_URL + (item.card?.info?.imageId || '')}
