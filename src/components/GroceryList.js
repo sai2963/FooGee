@@ -38,7 +38,7 @@ const GroceryList = () => {
               <h3 className="text-lg font-semibold text-gray-800">
                 {item.displayName}
               </h3>
-              <p className="text-gray-600 mt-2">Rs : {Math.floor(Math.random(1,101) * 101)}</p>
+              <p className="text-gray-600 mt-2">Rs : {item.price}</p>
               <button className="mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"
               onClick={()=>HandAddItem(item)}
               >

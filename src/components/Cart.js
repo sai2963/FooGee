@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart.items);
-
   const dispatch = useDispatch();
 
   const handleClear = () => {
@@ -13,13 +12,18 @@ const Cart = () => {
   };
 
   const handleRemoveItem = (index) => {
+    console.log("Removing item at index:", index);
     dispatch(removeItem(index));
   };
 
   const totalAmount = cartItems.reduce((total, item) => {
-    const price = item.card?.info?.price ?? item.card?.info?.defaultPrice ?? 0;
-    return total + price;
-  }, 0) / 100;
+    const price1 = (item.card?.info?.price ?? item.card?.info?.defaultPrice ?? 0) / 100;
+    const price2 = item.price ?? 0;
+    return total + price1 + price2;
+  }, 0);
+
+  const restaurantItems = cartItems.filter((item) => item.card?.info);
+  const groceryItems = cartItems.filter((item) => !item.card?.info);
 
   return (
     <div className="bg-gray-100 min-h-screen py-12">
@@ -28,32 +32,41 @@ const Cart = () => {
 
         {cartItems.length === 0 ? (
           <div className="text-center text-gray-600">
-            <p>Your cart is empty. Go <Link to="/" className="text-indigo-600">Home</Link> to add items.</p>
+            <p>
+              Your cart is empty. Go{" "}
+              <Link to="/" className="text-indigo-600">
+                Home
+              </Link>{" "}
+              to add items.
+            </p>
           </div>
         ) : (
           <div>
-            <div>
-              
-              {cartItems.map((item, index) => (
-                
-                
-                <div key={index} className="flex items-center justify-between border-b border-gray-200 py-4">
-                  {item.length > 0 && (
-                    <div>
-                      <h1>Restaurant-Items </h1>
+            {restaurantItems.length > 0 && (
+              <div>
+                <h2 className="font-bold text-2xl mb-4">Restaurant Items</h2>
+                {restaurantItems.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between border-b border-gray-200 py-4"
+                  >
                     <div className="flex items-center space-x-4">
                       <img
-                        src={IMG_CDN_URL + (item.card?.info?.imageId || '')}
-                        alt={item.card?.info?.name || 'No Name'}
+                        src={IMG_CDN_URL + (item.card?.info?.imageId || "")}
+                        alt={item.card?.info?.name || "No Name"}
                         className="h-20 w-20 rounded-full border-2 border-gray-300 shadow-md"
                       />
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-800">{item.card?.info?.name || 'No Name'}</h3>
+                        <h3 className="text-xl font-semibold text-gray-800">
+                          {item.card?.info?.name || "No Name"}
+                        </h3>
                         <p className="text-lg text-gray-600">
                           Rs.{" "}
-                          {item.card?.info?.price
-                            ? (item.card.info.price / 100).toFixed(2)
-                            : (item.card?.info?.defaultPrice / 100).toFixed(2) || '0.00'}
+                          {(
+                            (item.card?.info?.price ??
+                              item.card?.info?.defaultPrice ??
+                              0) / 100
+                          ).toFixed(2)}
                         </p>
                       </div>
                     </div>
@@ -63,57 +76,59 @@ const Cart = () => {
                     >
                       Remove
                     </button>
-                    </div>
-                  )}
-                  
-                  
-                </div>
-              ))}
-            </div>
-
-            <div>
-              <h1>Grocery-Items</h1>
-              {cartItems.map((item, index) => (
-                <div key={index} className="flex items-center justify-between border-b border-gray-200 py-4">
-                  <div className="flex items-center space-x-4">
-                    
-                    <img
-                      src={IMG_CDN_URL + (item.imageId || '')}
-                      alt={item.displayName || 'No Name'}
-                      className="h-20 w-20 rounded-full border-2 border-gray-300 shadow-md"
-                    />
-                    <div>
-                      <h3 className="text-xl font-semibold text-gray-800">{item.displayName || 'No Name'}</h3>
-                      <p className="text-lg text-gray-600">
-                        Rs.{" "}
-                        {Math.floor(Math.random() * 101).toFixed(2)}
-                      </p>
-                    </div>
                   </div>
-                  <button
-                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md shadow-md transition duration-300"
-                    onClick={() => handleRemoveItem(index)}
+                ))}
+              </div>
+            )}
+
+            {groceryItems.length > 0 && (
+              <div>
+                <h2 className="font-bold text-2xl mb-4">Grocery Items</h2>
+                {groceryItems.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between border-b border-gray-200 py-4"
                   >
-                    Remove
-                  </button>
-                </div>
-              ))}
-            </div>
+                    <div className="flex items-center space-x-4">
+                      <img
+                        src={IMG_CDN_URL + (item.imageId || "")}
+                        alt={item.displayName || "No Name"}
+                        className="h-20 w-20 rounded-full border-2 border-gray-300 shadow-md"
+                      />
+                      <div>
+                        <h3 className="text-xl font-semibold text-gray-800">
+                          {item.displayName || "No Name"}
+                        </h3>
+                        <p className="text-lg text-gray-600">Rs. {item.price}</p>
+                      </div>
+                    </div>
+                    <button
+                      className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md shadow-md transition duration-300"
+                      onClick={() => handleRemoveItem(index)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
 
             <div className="mt-8">
               <h2 className="text-2xl font-bold mb-4">Cart Summary</h2>
               <div className="flex items-center justify-between border-b border-gray-200 py-4">
                 <span className="text-lg text-gray-700">Items in Cart:</span>
-                <span className="text-lg font-semibold">{cartItems.length}</span>
+                <span className="text-lg font-semibold">
+                  {cartItems.length}
+                </span>
               </div>
               <div className="flex items-center justify-between border-b border-gray-200 py-4">
                 <span className="text-lg text-gray-700">Total Amount:</span>
-                <span className="text-lg font-semibold">Rs. {totalAmount.toFixed(2)}</span>
+                <span className="text-lg font-semibold">
+                  Rs. {totalAmount.toFixed(2)}
+                </span>
               </div>
               <div className="flex justify-end mt-4">
-                <button
-                  className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-3 rounded-lg shadow-lg hover:from-purple-600 hover:to-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-transform transform hover:scale-105"
-                >
+                <button className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-3 rounded-lg shadow-lg hover:from-purple-600 hover:to-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-transform transform hover:scale-105">
                   Proceed to Checkout
                 </button>
               </div>
