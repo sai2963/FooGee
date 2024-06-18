@@ -54,12 +54,12 @@ const Header = () => {
             {/* <link to="/cart" className="text-gray-700 dark:text-gray-300">Cart({CartItems.length}items)</link> */}
             <li>
 
-              <button
+              {/* <button
                 className="bg-blue-500 dark:bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-600 dark:hover:bg-blue-800"
                 onClick={() => setBtnName(btnName === "Login" ? "Logout" : "Login")}
               >
                 {btnName}
-              </button>
+              </button> */}
             </li>
             <li className="font-bold">{loggedInUser}</li>
             
